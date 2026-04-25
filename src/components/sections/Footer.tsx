@@ -81,9 +81,9 @@ export const Footer = () => {
 
   return (
     <div className="px-4 pb-4">
-      <div className="bg-[var(--lauft-darkest-grey)] rounded-[32px] text-white px-12 py-12 lg:px-16 lg:py-12">
+      <div className="bg-[var(--lauft-darkest-grey)] rounded-[32px] text-white px-6 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12">
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-14 mb-10">
           {/* Left: Logo + newsletter */}
           <div>
             <Image
@@ -104,7 +104,7 @@ export const Footer = () => {
 
             {/* Newsletter signup */}
             <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="email"
                   placeholder="your@email.com"

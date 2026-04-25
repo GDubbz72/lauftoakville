@@ -26,7 +26,7 @@ export const VirtualTour = ({ onTour }: VirtualTourProps) => {
   return (
     <div className="px-4 py-8">
       {/* Background container */}
-      <div className="relative rounded-[32px] overflow-hidden min-h-[700px] flex items-center bg-cover bg-center" style={{backgroundImage: 'url(/assets/imagery/virtual_tour.png)'}}>
+      <div className="relative rounded-[32px] overflow-hidden min-h-[420px] sm:min-h-[560px] lg:min-h-[700px] flex items-center bg-cover bg-center" style={{backgroundImage: 'url(/assets/imagery/virtual_tour.png)'}}>
         {/* Poster image as fallback */}
         <div className="absolute inset-0 -z-10 w-full h-full">
           <Image
@@ -42,12 +42,11 @@ export const VirtualTour = ({ onTour }: VirtualTourProps) => {
         <div className="absolute inset-0 bg-black/50 z-0" />
 
         {/* Content overlay */}
-        <div className="relative z-10 px-14 py-14 w-full">
+        <div className="relative z-10 px-6 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-14 w-full">
           <div className="flex flex-col gap-6 max-w-sm">
             <Headline
-              size={92}
               color="#fff"
-              style={{ letterSpacing: '-0.02em' }}
+              style={{ fontSize: 'clamp(36px, 8vw, 92px)', letterSpacing: '-0.02em' }}
             >
               Virtual<br />Tour<span style={{ color: '#00ABEA' }}>.</span>
             </Headline>
@@ -98,7 +97,7 @@ export const VirtualTour = ({ onTour }: VirtualTourProps) => {
             {/* Close button */}
             <button
               onClick={handleCloseModal}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+              className="absolute top-3 right-3 p-2 text-white hover:text-gray-300 transition-colors min-w-[44px] min-h-[44px]"
               aria-label="Close modal"
             >
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none">

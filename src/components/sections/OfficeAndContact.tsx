@@ -14,9 +14,8 @@ export const OfficeAndContact = ({ onBookTour, onContact }: OfficeAndContactProp
       {/* Left: Office Space */}
       <div className="px-2 pt-2 lg:px-0 lg:pt-0 lg:border-r lg:border-[var(--lauft-azure)] lg:pr-12">
         <Headline
-          size={56}
           color="#1D252C"
-          style={{ marginBottom: 20, letterSpacing: '-0.02em' }}
+          style={{ fontSize: 'clamp(28px, 7vw, 56px)', marginBottom: 20, letterSpacing: '-0.02em' }}
         >
           Office Space<br />Available to Rent.
         </Headline>

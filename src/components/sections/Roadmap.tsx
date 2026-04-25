@@ -147,18 +147,18 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
     <div
       ref={registrationRef}
       id="register"
-      className="px-4 py-16 lg:py-24"
+      className="px-4 py-10 lg:py-16"
     >
-      <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-14 items-start">
+      <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-14 items-start">
         {/* Left column: title + copy */}
         <div>
           <Eyebrow color="#00ABEA" style={{ marginBottom: 14 }}>
             Pre-Register · Oakville
           </Eyebrow>
           <Headline
-            size={48}
             color="#1D252C"
             style={{
+              fontSize: 'clamp(28px, 6vw, 48px)',
               letterSpacing: '-0.02em',
               marginBottom: 24,
             }}

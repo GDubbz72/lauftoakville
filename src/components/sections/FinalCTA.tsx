@@ -10,13 +10,12 @@ interface FinalCTAProps {
 export const FinalCTA = ({ onClaim }: FinalCTAProps) => {
   return (
     <div className="px-4 py-8">
-      <div className="bg-[var(--lauft-darkest-grey)] rounded-[32px] px-12 py-16 lg:px-16 text-white text-center relative overflow-hidden">
-        <div className="flex flex-row items-center justify-center gap-4 mb-7">
+      <div className="bg-[var(--lauft-darkest-grey)] rounded-[32px] px-6 py-10 sm:px-10 sm:py-12 lg:px-16 lg:py-16 text-white text-center relative overflow-hidden">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-7">
           <Headline
-            size={64}
             color="#fff"
             align="center"
-            style={{ letterSpacing: '-0.02em', margin: 0 }}
+            style={{ fontSize: 'clamp(28px, 7vw, 64px)', letterSpacing: '-0.02em', margin: 0 }}
           >
             Seize
           </Headline>
@@ -30,20 +29,18 @@ export const FinalCTA = ({ onClaim }: FinalCTAProps) => {
             />
           </div>
           <Headline
-            size={64}
             color="#fff"
             align="center"
-            style={{ letterSpacing: '-0.02em', margin: 0 }}
+            style={{ fontSize: 'clamp(28px, 7vw, 64px)', letterSpacing: '-0.02em', margin: 0 }}
           >
             The Moment
           </Headline>
         </div>
 
         <Headline
-          size={64}
           color="#fff"
           align="center"
-          style={{ letterSpacing: '-0.02em', marginBottom: 28 }}
+          style={{ fontSize: 'clamp(28px, 7vw, 64px)', letterSpacing: '-0.02em', marginBottom: 28 }}
         >
           Join LAUFT <span style={{ color: '#00ABEA' }}>Today!</span>
         </Headline>

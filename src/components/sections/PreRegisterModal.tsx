@@ -194,11 +194,11 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-[32px] p-8 lg:p-12 max-w-lg w-full max-h-[90vh] overflow-y-auto">
+      <div className="relative bg-white rounded-[32px] p-8 lg:p-12 max-w-lg w-full max-h-[90vh] overflow-y-auto">
         {/* Close button */}
         <button
           onClick={handleClose}
-          className="absolute top-6 right-6 text-[var(--lauft-mid-grey)] hover:text-[var(--lauft-darkest-grey)] transition-colors"
+          className="absolute top-3 right-3 p-2 min-w-[44px] min-h-[44px] text-[var(--lauft-mid-grey)] hover:text-[var(--lauft-darkest-grey)] transition-colors"
           aria-label="Close modal"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">

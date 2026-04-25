@@ -46,7 +46,7 @@ const benefits = [
 
 export const WhyOakville = ({ onRegister }: WhyOakvilleProps) => {
   return (
-    <div className="px-4 py-22 lg:py-16">
+    <div className="px-4 py-12 lg:py-16">
       <SectionHeading
         size={36}
         align="center"
@@ -56,7 +56,7 @@ export const WhyOakville = ({ onRegister }: WhyOakvilleProps) => {
         Why work in Oakville?
       </SectionHeading>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-14 max-w-4xl mx-auto mb-14">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-14 max-w-4xl mx-auto mb-14">
         {benefits.map((benefit, i) => (
           <div
             key={i}
