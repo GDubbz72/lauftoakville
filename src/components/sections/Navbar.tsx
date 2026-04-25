@@ -92,7 +92,7 @@ export const Navbar = ({ onPreRegister, onPricing }: NavbarProps) => {
         </div>
 
         {/* Desktop CTA Button */}
-        <Button variant="primary" size="large" onClick={onPreRegister} className="hidden sm:inline-flex">
+        <Button variant="primary" size="small" onClick={onPreRegister} className="hidden sm:inline-flex">
           Pre-Register
         </Button>
 
