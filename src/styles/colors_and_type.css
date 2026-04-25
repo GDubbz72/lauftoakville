@@ -1,0 +1,262 @@
+/* =================================================================
+   LAUFT Design System — Colors & Type
+   Source of truth: Lauft Brand Guidelines v12 (2021) + Oakville
+   landing page Figma. All hex/RGB values are taken directly from
+   the brand guidelines PDF.
+
+   Typography note:
+   - Brand spec = Lato (primary) + Basic Sans (secondary) + IvyPresto
+     (tertiary, serif). Figma mock used Neue Regrade / General Sans.
+   - We load Lato + Lora (closest free Google substitute for IvyPresto)
+     from Google Fonts. The Playfair Display variable TTF that shipped
+     with the uploads is NOT the real IvyPresto but is usable as an
+     editorial serif fallback. Basic Sans is substituted with Lato for
+     all body copy (brand-consistent).
+   - FLAGGED SUBSTITUTION: Basic Sans → Lato; IvyPresto → Lora/Playfair.
+   ================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,300;1,400;1,700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('./fonts/PlayfairDisplay-Variable.ttf') format('truetype-variations');
+  font-weight: 400 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('./fonts/PlayfairDisplay-Italic-Variable.ttf') format('truetype-variations');
+  font-weight: 400 900;
+  font-style: italic;
+}
+
+:root {
+  /* ───────────────────────────────────────────────────────────────
+     COLOR — PRIMARY PALETTE
+     The grounding of the LAUFT identity. Azure Blue is the signature
+     colour — it appears in the TRiO bar under the logo and should
+     never change hue.
+     ─────────────────────────────────────────────────────────────── */
+  --lauft-azure:         #00ABEA;  /* Pantone 2995C — Primary accent */
+  --lauft-darkest-grey:  #1D252C;  /* Pantone 433C  — Primary dark (use for body text + dark backgrounds) */
+  --lauft-lightest-grey: #D9D8D6;  /* Pantone CoolGray 1C — soft surfaces, dividers */
+  --lauft-white:         #FFFFFF;
+
+  /* ───── SECONDARY PALETTE — wider daily use ───── */
+  --lauft-bold-blue:     #0076A8;  /* Pantone 7690C */
+  --lauft-light-sky:     #97D8E9;  /* Pantone 304C */
+  --lauft-butter:        #F6CF3E;  /* Pantone 129C */
+  --lauft-mid-grey:      #5B6771;  /* Pantone 431C — secondary text */
+
+  /* ───── TERTIARY — BRIGHTS (moderate use) ───── */
+  --lauft-bright-berry:  #E63E51;  /* Pantone 710C */
+  --lauft-faded-putty:   #E5D5D3;  /* Pantone 7604 */
+  --lauft-warm-sun:      #FFB15B;  /* Pantone 150C */
+  --lauft-deep-purple:   #3E2B56;  /* Pantone 669C */
+
+  /* ───── TERTIARY — WARMS (moderate use) ───── */
+  --lauft-bold-tangerine:#DC582A;  /* Pantone 7579C */
+  --lauft-vibrant-purple:#8246AF;  /* Pantone 2587C */
+  --lauft-neutral-sand:  #C6A992;  /* Pantone 480C */
+  --lauft-neutral-pink:  #DC8699;  /* Pantone 493C */
+
+  /* ───────────────────────────────────────────────────────────────
+     SEMANTIC TOKENS
+     ─────────────────────────────────────────────────────────────── */
+  --bg:             var(--lauft-white);
+  --bg-dark:        var(--lauft-darkest-grey);
+  --bg-accent:      var(--lauft-azure);
+  --bg-subtle:      var(--lauft-lightest-grey);
+
+  --fg:             var(--lauft-darkest-grey);   /* Body */
+  --fg-muted:       var(--lauft-mid-grey);
+  --fg-inverse:     var(--lauft-white);
+  --fg-accent:      var(--lauft-azure);
+
+  --border:         var(--lauft-darkest-grey);
+  --border-subtle:  var(--lauft-lightest-grey);
+  --border-accent:  var(--lauft-azure);
+
+  --link:           var(--lauft-azure);
+  --link-hover:     var(--lauft-bold-blue);
+
+  --danger:         var(--lauft-bright-berry);
+  --warning:        var(--lauft-butter);
+  --success:        var(--lauft-bold-blue); /* brand-neutral — no green in palette */
+
+  /* ───────────────────────────────────────────────────────────────
+     TYPEFACES
+     ─────────────────────────────────────────────────────────────── */
+  --font-sans:      'Lato', -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif:     'Lora', 'Playfair Display', 'IvyPresto Display', Georgia, serif;  /* editorial — use sparingly */
+  --font-display:   'Lato', var(--font-sans); /* brand display uses Lato Black */
+  --font-mono:      ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* ───────────────────────────────────────────────────────────────
+     TYPE SCALE
+     LAUFT is HEADLINE-FORWARD. Hero type runs 96–118px Lato Black,
+     -0.01em tracking, leading 1.0. Body is Lato Medium / Regular 16px.
+     ─────────────────────────────────────────────────────────────── */
+  --fs-hero:        clamp(64px, 8vw, 118px);
+  --fs-display:     clamp(48px, 6vw, 96px);
+  --fs-h1:          48px;
+  --fs-h2:          32px;
+  --fs-h3:          24px;
+  --fs-h4:          20px;
+  --fs-body-lg:     18px;
+  --fs-body:        16px;
+  --fs-body-sm:     14px;
+  --fs-caption:     12px;
+
+  --lh-tight:       1.0;
+  --lh-snug:        1.2;
+  --lh-normal:      1.5;
+  --lh-relaxed:     1.8;
+
+  --ls-hero:        -0.01em;
+  --ls-eyebrow:     0.08em;    /* ALL-CAPS EYEBROWS */
+  --ls-normal:      0em;
+
+  --fw-light:       300;
+  --fw-regular:     400;
+  --fw-medium:      500;
+  --fw-semibold:    600;
+  --fw-bold:        700;
+  --fw-black:       900;
+
+  /* ───────────────────────────────────────────────────────────────
+     SPACING (4px base)
+     ─────────────────────────────────────────────────────────────── */
+  --sp-0: 0;
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 80px;
+  --sp-10:96px;
+  --sp-11:128px;
+
+  /* ───────────────────────────────────────────────────────────────
+     RADII — LAUFT uses pill buttons (radius=100) and big rounded
+     image/section cards (radius=32). Inputs are flat (radius=0).
+     ─────────────────────────────────────────────────────────────── */
+  --radius-none:    0;
+  --radius-sm:      4px;
+  --radius-md:      16px;
+  --radius-lg:      32px;  /* section cards, hero containers */
+  --radius-pill:    999px;
+
+  /* ───────────────────────────────────────────────────────────────
+     SHADOWS — minimal. LAUFT leans on solid colour blocks and strong
+     typography rather than elevation. Use sparingly.
+     ─────────────────────────────────────────────────────────────── */
+  --shadow-xs:      0 1px 2px rgba(29,37,44,0.06);
+  --shadow-sm:      0 2px 6px rgba(29,37,44,0.08);
+  --shadow-md:      0 8px 24px rgba(29,37,44,0.10);
+  --shadow-lg:      0 24px 64px rgba(29,37,44,0.14);
+  --shadow-focus:   0 0 0 3px rgba(0,171,234,0.35);
+
+  /* ───────────────────────────────────────────────────────────────
+     MOTION — brand is calm + professional. Short, eased transitions.
+     ─────────────────────────────────────────────────────────────── */
+  --ease-out:       cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out:    cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:       120ms;
+  --dur-base:       200ms;
+  --dur-slow:       400ms;
+
+  /* ───────────────────────────────────────────────────────────────
+     LAYOUT
+     ─────────────────────────────────────────────────────────────── */
+  --container:      1408px;  /* Figma canvas is 1440 with 16px gutters */
+  --gutter:         16px;
+}
+
+/* =================================================================
+   ELEMENT DEFAULTS — drop this file into a page and get brand-safe
+   typography for free.
+   ================================================================= */
+html {
+  font-family: var(--font-sans);
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, .h1 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-normal);
+  color: var(--fg);
+  margin: 0;
+}
+h2, .h2 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  margin: 0;
+}
+h3, .h3 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  margin: 0;
+}
+h4, .h4 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  margin: 0;
+}
+p, .body {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--fg);
+  margin: 0;
+}
+small, .caption {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-accent);
+}
+
+/* Signature brand headline — ALL CAPS, Lato Black, tight tracking */
+.hero-headline {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-black);
+  font-size: var(--fs-hero);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-hero);
+  text-transform: uppercase;
+  color: var(--fg-inverse);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-normal);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-accent);
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); }
+
+::selection { background: var(--lauft-azure); color: var(--lauft-white); }

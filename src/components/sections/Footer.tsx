@@ -1,0 +1,195 @@
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
+import { Button, Body } from '@/components/primitives';
+import { supabase, validateSupabaseConfig } from '@/lib/supabase';
+
+const footerLinks = [
+  {
+    heading: 'Explore',
+    links: ['About', 'Pricing', 'Locations', 'Blog', 'Contact'],
+  },
+  {
+    heading: 'Spaces',
+    links: ['SmartDesk', 'SmartSync', 'SmartOffice', 'SmartWorkroom', 'SmartBoardroom'],
+  },
+  {
+    heading: 'Connect',
+    links: ['Instagram', 'LinkedIn', 'X', 'YouTube', 'Newsletter'],
+  },
+];
+
+const validateEmail = (email: string): boolean => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
+export const Footer = () => {
+  const [emailInput, setEmailInput] = useState('');
+  const [subscribeLoading, setSubscribeLoading] = useState(false);
+  const [subscribeError, setSubscribeError] = useState('');
+  const [subscribeSuccess, setSubscribeSuccess] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubscribeError('');
+
+    if (!emailInput.trim()) {
+      setSubscribeError('Please enter your email');
+      return;
+    }
+
+    if (!validateEmail(emailInput)) {
+      setSubscribeError('Please enter a valid email');
+      return;
+    }
+
+    setSubscribeLoading(true);
+
+    try {
+      const { error } = await supabase.from('lauft_newsletter').insert([
+        {
+          email: emailInput.trim().toLowerCase(),
+          created_at: new Date().toISOString(),
+        },
+      ]);
+
+      if (error) {
+        if (error.message?.includes('duplicate') || error.code === '23505') {
+          setSubscribeError('Already subscribed!');
+        } else if (!validateSupabaseConfig()) {
+          setSubscribeError('Newsletter not configured yet');
+        } else {
+          setSubscribeError('Failed to subscribe. Try again.');
+        }
+        setSubscribeLoading(false);
+        return;
+      }
+
+      setSubscribeSuccess(true);
+      setEmailInput('');
+
+      setTimeout(() => {
+        setSubscribeSuccess(false);
+      }, 3000);
+    } catch {
+      setSubscribeError('An error occurred');
+    } finally {
+      setSubscribeLoading(false);
+    }
+  };
+
+  return (
+    <div className="px-4 pb-4">
+      <div className="bg-[var(--lauft-darkest-grey)] rounded-[32px] text-white px-12 py-12 lg:px-16 lg:py-12">
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14 mb-10">
+          {/* Left: Logo + newsletter */}
+          <div>
+            <Image
+              src="/assets/logos/lauft_reverse.png"
+              alt="LAUFT"
+              width={140}
+              height={28}
+              className="mb-6"
+            />
+            <Body
+              size={13}
+              color="rgba(255,255,255,0.7)"
+              weight={500}
+              style={{ maxWidth: 320, marginBottom: 24 }}
+            >
+              On-demand network of flexible workspaces. The third option between home and the office.
+            </Body>
+
+            {/* Newsletter signup */}
+            <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  disabled={subscribeLoading || subscribeSuccess}
+                  className={`
+                    flex-1 px-4 py-2.5 rounded-full border bg-transparent text-white font-lato text-sm outline-none placeholder-white placeholder-opacity-50 transition-colors duration-200
+                    ${
+                      subscribeError
+                        ? 'border-[var(--lauft-bright-berry)] border-opacity-100'
+                        : 'border-white border-opacity-30 focus:border-opacity-100'
+                    }
+                    ${subscribeSuccess ? 'opacity-60' : ''}
+                  `}
+                />
+                <Button
+                  variant="primary"
+                  size="small"
+                  type="submit"
+                  disabled={subscribeLoading || subscribeSuccess}
+                >
+                  {subscribeLoading ? '...' : subscribeSuccess ? '✓' : 'Subscribe'}
+                </Button>
+              </div>
+              {subscribeError && (
+                <span className="text-xs text-[var(--lauft-bright-berry)]">{subscribeError}</span>
+              )}
+              {subscribeSuccess && (
+                <span className="text-xs text-[var(--lauft-light-sky)]">Thanks for subscribing!</span>
+              )}
+            </form>
+          </div>
+
+          {/* Link columns */}
+          {footerLinks.map((col) => (
+            <div key={col.heading}>
+              <div className="font-lato font-bold uppercase text-xs tracking-widest text-[var(--lauft-azure)] mb-4.5">
+                {col.heading}
+              </div>
+              <div className="flex flex-col gap-2.5">
+                {col.links.map((link) => (
+                  <FooterLink key={link}>{link}</FooterLink>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom */}
+        <div className="border-t border-white border-opacity-12 pt-5 flex flex-col lg:flex-row justify-between items-center gap-4 font-lato text-xs text-white text-opacity-55">
+          <span>© 2026 LAUFT. Make Smart Work.™</span>
+          <div className="flex gap-6">
+            <FooterLink small>Privacy</FooterLink>
+            <FooterLink small>Terms</FooterLink>
+            <FooterLink small>Cookies</FooterLink>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+interface FooterLinkProps {
+  children: string;
+  small?: boolean;
+}
+
+function FooterLink({ children, small }: FooterLinkProps) {
+  const [hov, setHov] = useState(false);
+
+  return (
+    <a
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      href="#"
+      className={`
+        font-lato font-medium transition-colors duration-180 text-decoration-none
+        ${small ? 'text-xs text-white text-opacity-55 hover:text-opacity-100' : 'text-sm text-white text-opacity-85 hover:text-[var(--lauft-azure)]'}
+      `}
+      style={{
+        color: hov ? '#00ABEA' : small ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.85)',
+      }}
+    >
+      {children}
+    </a>
+  );
+}
