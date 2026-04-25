@@ -42,6 +42,14 @@ const validateEmail = (email: string): boolean => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
 
+const formatPhoneNumber = (value: string): string => {
+  const digits = value.replace(/\D/g, '').slice(0, 10);
+  if (digits.length === 0) return '';
+  if (digits.length <= 3) return `(${digits}`;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+};
+
 const validate = (data: FormData): FormErrors => {
   const errors: FormErrors = {};
 
@@ -88,10 +96,11 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (field: keyof FormData, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    const formattedValue = field === 'phone' ? formatPhoneNumber(value) : value;
+    setFormData((prev) => ({ ...prev, [field]: formattedValue }));
 
     if (touched[field]) {
-      const newErrors = validate({ ...formData, [field]: value });
+      const newErrors = validate({ ...formData, [field]: formattedValue });
       setErrors(newErrors);
     }
   };
