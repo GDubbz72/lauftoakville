@@ -19,7 +19,6 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: 'About', action: 'link', href: 'https://www.lauft.work', target: '_blank' },
   { label: 'Pricing', action: 'modal' },
-  { label: 'Blog', action: 'link', href: 'https://blog.lauft.work/dimensions', target: '_blank' },
 ];
 
 export const Navbar = ({ onPreRegister, onPricing }: NavbarProps) => {
