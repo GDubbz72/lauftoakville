@@ -6,12 +6,25 @@ import { Button } from '@/components/primitives';
 
 interface NavbarProps {
   onPreRegister: () => void;
+  onPricing: () => void;
 }
 
-export const Navbar = ({ onPreRegister }: NavbarProps) => {
+interface NavItem {
+  label: string;
+  action: 'link' | 'modal';
+  href?: string;
+  target?: '_blank';
+}
+
+const navItems: NavItem[] = [
+  { label: 'About', action: 'link', href: 'https://www.lauft.work', target: '_blank' },
+  { label: 'Pricing', action: 'modal' },
+  { label: 'Blog', action: 'link', href: 'https://blog.lauft.work/dimensions', target: '_blank' },
+];
+
+export const Navbar = ({ onPreRegister, onPricing }: NavbarProps) => {
   const [hovItem, setHovItem] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const navItems = ['About', 'Pricing', 'Blog'];
 
   return (
     <div className="sticky top-0 z-50 w-full bg-white py-5 px-4">
@@ -29,20 +42,54 @@ export const Navbar = ({ onPreRegister }: NavbarProps) => {
 
         {/* Desktop Nav items */}
         <div className="hidden md:flex gap-4 md:gap-6 lg:gap-10 items-center">
-          {navItems.map((item) => (
-            <span
-              key={item}
-              onMouseEnter={() => setHovItem(item)}
-              onMouseLeave={() => setHovItem(null)}
-              className={`
-                font-lato font-semibold text-sm text-[var(--lauft-darkest-grey)]
-                cursor-pointer pb-0.5 border-b-2 transition-colors duration-200
-                ${hovItem === item ? 'border-[var(--lauft-azure)]' : 'border-transparent'}
-              `}
-            >
-              {item}
-            </span>
-          ))}
+          {navItems.map((item) => {
+            const handleClick = (e: React.MouseEvent) => {
+              if (item.action === 'link' && item.href) {
+                e.preventDefault();
+                window.open(item.href, item.target);
+              } else if (item.action === 'modal') {
+                e.preventDefault();
+                onPricing();
+              }
+            };
+
+            if (item.action === 'link') {
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={item.target}
+                  rel="noopener noreferrer"
+                  onMouseEnter={() => setHovItem(item.label)}
+                  onMouseLeave={() => setHovItem(null)}
+                  onClick={handleClick}
+                  className={`
+                    font-lato font-semibold text-sm text-[var(--lauft-darkest-grey)]
+                    pb-0.5 border-b-2 transition-colors duration-200
+                    ${hovItem === item.label ? 'border-[var(--lauft-azure)]' : 'border-transparent'}
+                  `}
+                >
+                  {item.label}
+                </a>
+              );
+            }
+
+            return (
+              <button
+                key={item.label}
+                onClick={handleClick}
+                onMouseEnter={() => setHovItem(item.label)}
+                onMouseLeave={() => setHovItem(null)}
+                className={`
+                  font-lato font-semibold text-sm text-[var(--lauft-darkest-grey)]
+                  pb-0.5 border-b-2 transition-colors duration-200
+                  ${hovItem === item.label ? 'border-[var(--lauft-azure)]' : 'border-transparent'}
+                `}
+              >
+                {item.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Desktop CTA Button */}
@@ -66,16 +113,42 @@ export const Navbar = ({ onPreRegister }: NavbarProps) => {
       {menuOpen && (
         <div className="md:hidden w-full bg-white border-b border-[var(--lauft-darkest-grey)]">
           <div className="px-4 py-4 flex flex-col gap-4">
-            {navItems.map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="font-lato font-semibold text-sm text-[var(--lauft-darkest-grey)] hover:text-[var(--lauft-azure)] transition-colors"
-                onClick={() => setMenuOpen(false)}
-              >
-                {item}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              const handleClick = (e?: React.MouseEvent) => {
+                if (e) e.preventDefault();
+                if (item.action === 'link' && item.href) {
+                  window.open(item.href, item.target);
+                } else if (item.action === 'modal') {
+                  onPricing();
+                }
+                setMenuOpen(false);
+              };
+
+              if (item.action === 'link') {
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target={item.target}
+                    rel="noopener noreferrer"
+                    className="font-lato font-semibold text-sm text-[var(--lauft-darkest-grey)] hover:text-[var(--lauft-azure)] transition-colors"
+                    onClick={handleClick}
+                  >
+                    {item.label}
+                  </a>
+                );
+              }
+
+              return (
+                <button
+                  key={item.label}
+                  onClick={handleClick}
+                  className="text-left font-lato font-semibold text-sm text-[var(--lauft-darkest-grey)] hover:text-[var(--lauft-azure)] transition-colors"
+                >
+                  {item.label}
+                </button>
+              );
+            })}
             <Button
               variant="primary"
               size="large"

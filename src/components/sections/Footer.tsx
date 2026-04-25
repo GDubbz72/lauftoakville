@@ -5,18 +5,48 @@ import Image from 'next/image';
 import { Button, Body } from '@/components/primitives';
 import { supabase, validateSupabaseConfig } from '@/lib/supabase';
 
-const footerLinks = [
+interface FooterLink {
+  label: string;
+  action?: 'link' | 'modal';
+  href?: string;
+  target?: '_blank';
+}
+
+interface FooterLinkGroup {
+  heading: string;
+  links: FooterLink[];
+}
+
+const footerLinks: FooterLinkGroup[] = [
   {
     heading: 'Explore',
-    links: ['About', 'Pricing', 'Locations', 'Blog', 'Contact'],
+    links: [
+      { label: 'About', action: 'link', href: 'https://www.lauft.work', target: '_blank' },
+      { label: 'Pricing', action: 'modal' },
+      { label: 'Locations', action: 'link', href: '#' },
+      { label: 'Blog', action: 'link', href: 'https://blog.lauft.work/dimensions', target: '_blank' },
+      { label: 'Contact', action: 'link', href: '#' },
+    ],
   },
   {
     heading: 'Spaces',
-    links: ['SmartDesk', 'SmartSync', 'SmartOffice', 'SmartWorkroom', 'SmartBoardroom'],
+    links: [
+      { label: 'SmartDesk', action: 'link', href: '#' },
+      { label: 'SmartSync', action: 'link', href: '#' },
+      { label: 'SmartOffice', action: 'link', href: '#' },
+      { label: 'SmartWorkroom', action: 'link', href: '#' },
+      { label: 'SmartBoardroom', action: 'link', href: '#' },
+    ],
   },
   {
     heading: 'Connect',
-    links: ['Instagram', 'LinkedIn', 'X', 'YouTube', 'Newsletter'],
+    links: [
+      { label: 'Instagram', action: 'link', href: '#' },
+      { label: 'LinkedIn', action: 'link', href: '#' },
+      { label: 'X', action: 'link', href: '#' },
+      { label: 'YouTube', action: 'link', href: '#' },
+      { label: 'Newsletter', action: 'link', href: '#' },
+    ],
   },
 ];
 
@@ -24,7 +54,11 @@ const validateEmail = (email: string): boolean => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
 
-export const Footer = () => {
+interface FooterProps {
+  onPricing?: () => void;
+}
+
+export const Footer = ({ onPricing }: FooterProps) => {
   const [emailInput, setEmailInput] = useState('');
   const [subscribeLoading, setSubscribeLoading] = useState(false);
   const [subscribeError, setSubscribeError] = useState('');
@@ -147,7 +181,7 @@ export const Footer = () => {
               </div>
               <div className="flex flex-col gap-2.5">
                 {col.links.map((link) => (
-                  <FooterLink key={link}>{link}</FooterLink>
+                  <FooterLink key={link.label} link={link} onPricing={onPricing} />
                 ))}
               </div>
             </div>
@@ -169,12 +203,64 @@ export const Footer = () => {
 };
 
 interface FooterLinkProps {
-  children: string;
+  link?: FooterLink;
+  children?: React.ReactNode;
   small?: boolean;
+  onPricing?: () => void;
 }
 
-function FooterLink({ children, small }: FooterLinkProps) {
+function FooterLink({ link, children, small, onPricing }: FooterLinkProps) {
   const [hov, setHov] = useState(false);
+
+  if (link) {
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+      e.preventDefault();
+      if (link.action === 'modal' && onPricing) {
+        onPricing();
+      } else if (link.action === 'link' && link.href && link.href !== '#') {
+        window.open(link.href, link.target);
+      }
+    };
+
+    if (link.action === 'modal') {
+      return (
+        <button
+          onMouseEnter={() => setHov(true)}
+          onMouseLeave={() => setHov(false)}
+          onClick={handleClick}
+          className={`
+            font-lato font-medium transition-colors duration-180 text-decoration-none
+            text-left text-sm text-white text-opacity-85 hover:text-[var(--lauft-azure)]
+          `}
+          style={{
+            color: hov ? '#00ABEA' : 'rgba(255,255,255,0.85)',
+          }}
+        >
+          {link.label}
+        </button>
+      );
+    }
+
+    return (
+      <a
+        onMouseEnter={() => setHov(true)}
+        onMouseLeave={() => setHov(false)}
+        href={link.href}
+        target={link.target}
+        rel="noopener noreferrer"
+        onClick={handleClick}
+        className={`
+          font-lato font-medium transition-colors duration-180 text-decoration-none
+          ${small ? 'text-xs text-white text-opacity-55 hover:text-opacity-100' : 'text-sm text-white text-opacity-85 hover:text-[var(--lauft-azure)]'}
+        `}
+        style={{
+          color: hov ? '#00ABEA' : small ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.85)',
+        }}
+      >
+        {link.label}
+      </a>
+    );
+  }
 
   return (
     <a
