@@ -23,7 +23,7 @@ const footerLinks: FooterLinkGroup[] = [
     links: [
       { label: 'About', action: 'link', href: 'https://www.lauft.work', target: '_blank' },
       { label: 'Pricing', action: 'modal' },
-      { label: 'Locations', action: 'link', href: '#' },
+      { label: 'Locations', action: 'link', href: 'https://www.lauft.work', target: '_blank' },
       { label: 'Blog', action: 'link', href: 'https://blog.lauft.work/dimensions', target: '_blank' },
       { label: 'Contact', action: 'link', href: '#' },
     ],
