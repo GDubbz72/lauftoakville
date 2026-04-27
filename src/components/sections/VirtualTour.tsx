@@ -56,7 +56,7 @@ export const VirtualTour = ({ onTour }: VirtualTourProps) => {
               color="rgba(255,255,255,0.95)"
               weight={500}
             >
-              Step inside LAUFT Oakville before opening day. Our immersive 📺 video tour walks
+              Step inside LAUFT Oakville before opening day. Our immersive video tour walks
               you through every space — from SmartDesks to the SmartBoardroom — so you can
               picture exactly where you'll get your best work done.
             </Body>
