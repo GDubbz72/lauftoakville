@@ -201,10 +201,11 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
               <div className="mt-2">
                 <Button
                   variant="primary"
-                  size="large"
+                  size="small"
                   type="submit"
                   disabled={isLoading}
                   fullWidth
+                  className="sm:px-9 sm:py-4.5 sm:text-sm"
                 >
                   {isLoading ? 'Sending...' : 'Send My Roadmap'}
                 </Button>

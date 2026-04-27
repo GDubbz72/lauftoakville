@@ -61,7 +61,7 @@ export const VirtualTour = ({ onTour }: VirtualTourProps) => {
               picture exactly where you'll get your best work done.
             </Body>
             <div>
-              <Button variant="primary" size="large" onClick={handlePlay}>
+              <Button variant="primary" size="small" onClick={handlePlay} className="sm:px-9 sm:py-4.5 sm:text-sm">
                 Take a Virtual Tour
               </Button>
             </div>
@@ -72,7 +72,7 @@ export const VirtualTour = ({ onTour }: VirtualTourProps) => {
             onClick={handlePlay}
             onMouseEnter={() => setHovPlay(true)}
             onMouseLeave={() => setHovPlay(false)}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+            className="hidden sm:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
           >
             <div
               className="transition-transform duration-200"

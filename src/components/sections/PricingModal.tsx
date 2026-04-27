@@ -138,7 +138,7 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
                 </ul>
               </div>
 
-              <Button variant="primary" size="large" fullWidth>
+              <Button variant="primary" size="small" fullWidth className="sm:px-9 sm:py-4.5 sm:text-sm">
                 {tier.name === 'Monthly' ? 'Get Started' : `Book ${tier.name}`}
               </Button>
             </div>

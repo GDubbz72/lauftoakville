@@ -74,7 +74,7 @@ export const WhyOakville = ({ onRegister }: WhyOakvilleProps) => {
       </div>
 
       <div className="flex justify-center">
-        <Button variant="primary" size="large" onClick={onRegister}>
+        <Button variant="primary" size="small" onClick={onRegister} className="sm:px-9 sm:py-4.5 sm:text-sm">
           Register Today
         </Button>
       </div>

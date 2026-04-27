@@ -29,7 +29,7 @@ export const OfficeAndContact = ({ onBookTour, onContact }: OfficeAndContactProp
           Whether you're flying solo or rolling 12-deep for a boardroom workshop,
           you only pay for what you use. <strong>Find it. Book it. Get to work.</strong>
         </Body>
-        <Button variant="primary" size="large" onClick={onBookTour}>
+        <Button variant="primary" size="small" onClick={onBookTour} className="sm:px-9 sm:py-4.5 sm:text-sm">
           Book a Tour
         </Button>
       </div>

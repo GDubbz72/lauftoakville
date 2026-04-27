@@ -55,7 +55,7 @@ export const FinalCTA = ({ onClaim }: FinalCTAProps) => {
           pricing and be first through the doors at LAUFT Oakville.
         </Body>
 
-        <Button variant="primary" size="large" onClick={onClaim}>
+        <Button variant="primary" size="small" onClick={onClaim} className="sm:px-9 sm:py-4.5 sm:text-sm">
           Claim Your Spot
         </Button>
       </div>

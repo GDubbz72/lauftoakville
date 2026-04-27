@@ -309,10 +309,11 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
 
               <Button
                 variant="primary"
-                size="large"
+                size="small"
                 type="submit"
                 disabled={isLoading}
                 fullWidth
+                className="sm:px-9 sm:py-4.5 sm:text-sm"
               >
                 {isLoading ? 'Submitting...' : 'Claim Your Spot'}
               </Button>

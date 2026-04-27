@@ -49,7 +49,7 @@ export const Hero = ({ onRegister }: HeroProps) => {
               </Headline>
             </div>
             <div className="pb-2 flex-shrink-0">
-              <Button variant="primary" size="xlarge" onClick={onRegister}>
+              <Button variant="primary" size="small" onClick={onRegister} className="sm:px-9 sm:py-4.5 sm:text-sm">
                 Pre-Register Today
               </Button>
             </div>
