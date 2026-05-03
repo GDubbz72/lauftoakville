@@ -27,7 +27,7 @@ export const Hero = ({ onRegister }: HeroProps) => {
         <div className="relative h-full flex flex-col justify-between p-6 sm:p-10 lg:p-14 text-white">
           {/* Eyebrow */}
           <div>
-            <Eyebrow color="#00ABEA">Coming Soon</Eyebrow>
+            <Eyebrow color="#00ABEA" style={{ fontSize: 'clamp(11px, 2.5vw, 26px)', fontWeight: 900 }}>Coming Soon</Eyebrow>
           </div>
 
           {/* Headline + CTA */}
