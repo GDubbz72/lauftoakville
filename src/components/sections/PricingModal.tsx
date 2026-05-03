@@ -200,7 +200,7 @@ export const PricingModal = ({ isOpen, onClose, onOpenPreRegister }: PricingModa
                     aria-label="Download LAUFT on Apple App Store"
                   >
                     <Image
-                      src="/assets/apple"
+                      src="/assets/apple.png"
                       alt="Apple App Store"
                       width={70}
                       height={70}
