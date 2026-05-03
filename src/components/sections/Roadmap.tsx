@@ -330,26 +330,6 @@ function FormField({ field, value, error, onChange, onBlur, disabled }: FormFiel
             className="flex-1 border-none outline-none bg-transparent font-lato font-medium text-base text-[var(--lauft-darkest-grey)] placeholder-gray-500"
           />
         )}
-        {!showError && (
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="flex-shrink-0 opacity-55">
-            <path
-              d="M11 4 L4 11 M4 11 L4 7 M4 11 L8 11"
-              stroke="#1D252C"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <rect
-              x="2"
-              y="2"
-              width="14"
-              height="14"
-              rx="0"
-              stroke="#1D252C"
-              strokeWidth="1.5"
-            />
-          </svg>
-        )}
       </div>
       {showError && (
         <span className="text-xs font-semibold text-[var(--lauft-bright-berry)] pl-1">
