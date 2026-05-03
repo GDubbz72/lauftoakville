@@ -60,9 +60,16 @@ export const OfficeAndContact = ({ onBookTour, onContact }: OfficeAndContactProp
             </div>
 
             {/* LinkedIn button */}
-            <Button variant="outline" size="small" onClick={onContact}>
-              LinkedIn
-            </Button>
+            <a
+              href="https://ca.linkedin.com/in/mel-schembri-b727a625"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Button variant="outline" size="small" className="sm:px-9 sm:py-4.5 sm:text-sm">
+                LinkedIn
+              </Button>
+            </a>
           </div>
 
           {/* Right: Copy text + buttons */}

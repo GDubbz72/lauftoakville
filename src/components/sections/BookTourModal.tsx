@@ -13,6 +13,7 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
+  postalCode: string;
   website?: string;
 }
 
@@ -20,6 +21,7 @@ interface FormErrors {
   name?: string;
   email?: string;
   phone?: string;
+  postalCode?: string;
   submit?: string;
 }
 
@@ -37,6 +39,17 @@ const formatPhoneNumber = (value: string): string => {
   if (digits.length <= 3) return `(${digits}`;
   if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+};
+
+const formatPostalCode = (value: string): string => {
+  const cleaned = value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+  if (cleaned.length === 0) return '';
+  if (cleaned.length <= 3) return cleaned;
+  return `${cleaned.slice(0, 3)} ${cleaned.slice(3)}`;
+};
+
+const validatePostalCode = (postalCode: string): boolean => {
+  return /^[A-Z]\d[A-Z] \d[A-Z]\d$/.test(postalCode);
 };
 
 const validate = (data: FormData): FormErrors => {
@@ -58,6 +71,12 @@ const validate = (data: FormData): FormErrors => {
     errors.phone = 'Please enter a valid phone number';
   }
 
+  if (!data.postalCode.trim()) {
+    errors.postalCode = 'Please enter your postal code';
+  } else if (!validatePostalCode(data.postalCode)) {
+    errors.postalCode = 'Please enter a valid postal code (A1A 1A1)';
+  }
+
   return errors;
 };
 
@@ -66,6 +85,7 @@ export const BookTourModal = ({ isOpen, onClose }: BookTourModalProps) => {
     name: '',
     email: '',
     phone: '',
+    postalCode: '',
     website: '',
   });
 
@@ -75,7 +95,12 @@ export const BookTourModal = ({ isOpen, onClose }: BookTourModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (field: keyof FormData, value: string) => {
-    const formattedValue = field === 'phone' ? formatPhoneNumber(value) : value;
+    let formattedValue = value;
+    if (field === 'phone') {
+      formattedValue = formatPhoneNumber(value);
+    } else if (field === 'postalCode') {
+      formattedValue = formatPostalCode(value);
+    }
     setFormData((prev) => ({ ...prev, [field]: formattedValue }));
 
     if (touched[field]) {
@@ -101,6 +126,7 @@ export const BookTourModal = ({ isOpen, onClose }: BookTourModalProps) => {
       name: true,
       email: true,
       phone: true,
+      postalCode: true,
     });
 
     const newErrors = validate(formData);
@@ -131,6 +157,7 @@ export const BookTourModal = ({ isOpen, onClose }: BookTourModalProps) => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+          postal_code: formData.postalCode,
         },
       ]);
 
@@ -151,7 +178,7 @@ export const BookTourModal = ({ isOpen, onClose }: BookTourModalProps) => {
   };
 
   const handleClose = () => {
-    setFormData({ name: '', email: '', phone: '', website: '' });
+    setFormData({ name: '', email: '', phone: '', postalCode: '', website: '' });
     setErrors({});
     setTouched({});
     setSubmitted(false);
@@ -238,6 +265,18 @@ export const BookTourModal = ({ isOpen, onClose }: BookTourModalProps) => {
                 error={touched.phone ? errors.phone : ''}
                 onChange={(value) => handleChange('phone', value)}
                 onBlur={() => handleBlur('phone')}
+                disabled={isLoading}
+              />
+
+              {/* Postal Code */}
+              <FormField
+                label="Postal Code"
+                placeholder="A1A 1A1"
+                type="text"
+                value={formData.postalCode}
+                error={touched.postalCode ? errors.postalCode : ''}
+                onChange={(value) => handleChange('postalCode', value)}
+                onBlur={() => handleBlur('postalCode')}
                 disabled={isLoading}
               />
 

@@ -7,29 +7,48 @@ import { Button, Headline, Body, Eyebrow } from '@/components/primitives';
 interface FormData {
   name: string;
   email: string;
-  company: string;
-  role: string;
+  currentWorkspace: string;
+  companySize: string;
 }
 
 interface FormErrors {
   name?: string;
   email?: string;
-  company?: string;
-  role?: string;
+  currentWorkspace?: string;
+  companySize?: string;
   submit?: string;
 }
 
-interface FormField {
+interface FormFieldDef {
   key: keyof FormData;
   label: string;
   placeholder: string;
+  type?: 'text' | 'email' | 'select';
+  options?: { value: string; label: string }[];
 }
 
-const formFields: FormField[] = [
-  { key: 'name', label: 'Your name', placeholder: 'How should we greet you?' },
-  { key: 'email', label: 'Email', placeholder: 'name@company.com' },
-  { key: 'company', label: 'Company', placeholder: 'Where do you work?' },
-  { key: 'role', label: 'Role', placeholder: 'What do you do?' },
+const currentWorkspaceOptions = [
+  { value: 'home-office', label: 'Home Office' },
+  { value: 'office', label: 'Office' },
+  { value: 'coworking', label: 'Coworking Space' },
+  { value: 'hybrid', label: 'Hybrid' },
+  { value: 'other', label: 'Other' },
+];
+
+const companySizeOptions = [
+  { value: '1', label: '1' },
+  { value: '2-5', label: '2-5 people' },
+  { value: '6-15', label: '6-15 people' },
+  { value: '16-25', label: '16-25 people' },
+  { value: '26-50', label: '26-50 people' },
+  { value: '50+', label: '50+' },
+];
+
+const formFields: FormFieldDef[] = [
+  { key: 'name', label: 'Your name', placeholder: 'John Doe', type: 'text' },
+  { key: 'email', label: 'Email', placeholder: 'john@company.com', type: 'email' },
+  { key: 'currentWorkspace', label: 'Current Workspace', placeholder: 'Current Workspace', type: 'select', options: currentWorkspaceOptions },
+  { key: 'companySize', label: 'Company Size', placeholder: 'Select company size', type: 'select', options: companySizeOptions },
 ];
 
 const validateEmail = (email: string): boolean => {
@@ -49,12 +68,12 @@ const validate = (data: FormData): FormErrors => {
     errors.email = 'Please enter a valid email address';
   }
 
-  if (!data.company.trim()) {
-    errors.company = 'Please enter your company';
+  if (!data.currentWorkspace) {
+    errors.currentWorkspace = 'Please select your current workspace';
   }
 
-  if (!data.role.trim()) {
-    errors.role = 'Please enter your role';
+  if (!data.companySize) {
+    errors.companySize = 'Please select your company size';
   }
 
   return errors;
@@ -68,8 +87,8 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    company: '',
-    role: '',
+    currentWorkspace: '',
+    companySize: '',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -99,8 +118,8 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
     setTouched({
       name: true,
       email: true,
-      company: true,
-      role: true,
+      currentWorkspace: true,
+      companySize: true,
     });
 
     const newErrors = validate(formData);
@@ -123,8 +142,8 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
         {
           name: formData.name.trim(),
           email: formData.email.trim().toLowerCase(),
-          company: formData.company.trim(),
-          role: formData.role.trim(),
+          current_workspace: formData.currentWorkspace,
+          company_size: formData.companySize,
           created_at: new Date().toISOString(),
         },
       ]);
@@ -186,16 +205,34 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
 
           {!submitted ? (
             <>
-              {formFields.map((field) => (
-                <FormField
-                  key={field.key}
-                  field={field}
-                  value={formData[field.key]}
-                  error={touched[field.key] ? errors[field.key] : ''}
-                  onChange={(value) => handleChange(field.key, value)}
-                  onBlur={() => handleBlur(field.key)}
-                  disabled={isLoading}
-                />
+              {formFields.map((field, index) => (
+                <div key={field.key}>
+                  {field.key === 'currentWorkspace' && (
+                    <div className="mt-6 mb-3.5">
+                      <div className="font-lato font-bold text-base text-[var(--lauft-darkest-grey)] uppercase tracking-wide mb-3.5">
+                        What's your current working journey look like?
+                      </div>
+                      <FormField
+                        field={field}
+                        value={formData[field.key]}
+                        error={touched[field.key] ? errors[field.key] : ''}
+                        onChange={(value) => handleChange(field.key, value)}
+                        onBlur={() => handleBlur(field.key)}
+                        disabled={isLoading}
+                      />
+                    </div>
+                  )}
+                  {field.key !== 'currentWorkspace' && (
+                    <FormField
+                      field={field}
+                      value={formData[field.key]}
+                      error={touched[field.key] ? errors[field.key] : ''}
+                      onChange={(value) => handleChange(field.key, value)}
+                      onBlur={() => handleBlur(field.key)}
+                      disabled={isLoading}
+                    />
+                  )}
+                </div>
               ))}
 
               <div className="mt-2">
@@ -226,7 +263,7 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
 };
 
 interface FormFieldProps {
-  field: FormField;
+  field: FormFieldDef;
   value: string;
   error: string | undefined;
   onChange: (value: string) => void;
@@ -237,6 +274,7 @@ interface FormFieldProps {
 function FormField({ field, value, error, onChange, onBlur, disabled }: FormFieldProps) {
   const [focus, setFocus] = useState(false);
   const showError = !!error;
+  const isSelect = field.type === 'select';
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -254,20 +292,44 @@ function FormField({ field, value, error, onChange, onBlur, disabled }: FormFiel
           ${disabled ? 'opacity-60' : ''}
         `}
       >
-        <input
-          type={field.key === 'email' ? 'email' : 'text'}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          onFocus={() => setFocus(true)}
-          onBlur={() => {
-            setFocus(false);
-            onBlur();
-          }}
-          placeholder={field.placeholder}
-          disabled={disabled}
-          aria-label={field.label}
-          className="flex-1 border-none outline-none bg-transparent font-lato font-medium text-base text-[var(--lauft-darkest-grey)] placeholder-gray-500"
-        />
+        {isSelect ? (
+          <select
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            onFocus={() => setFocus(true)}
+            onBlur={() => {
+              setFocus(false);
+              onBlur();
+            }}
+            disabled={disabled}
+            aria-label={field.label}
+            className="flex-1 border-none outline-none bg-transparent font-lato font-medium text-base text-[var(--lauft-darkest-grey)] cursor-pointer"
+          >
+            <option value="" disabled>
+              {field.placeholder}
+            </option>
+            {field.options?.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <input
+            type={field.type === 'email' ? 'email' : 'text'}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            onFocus={() => setFocus(true)}
+            onBlur={() => {
+              setFocus(false);
+              onBlur();
+            }}
+            placeholder={field.placeholder}
+            disabled={disabled}
+            aria-label={field.label}
+            className="flex-1 border-none outline-none bg-transparent font-lato font-medium text-base text-[var(--lauft-darkest-grey)] placeholder-gray-500"
+          />
+        )}
         {!showError && (
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="flex-shrink-0 opacity-55">
             <path

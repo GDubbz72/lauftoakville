@@ -58,7 +58,7 @@ export default function Home() {
 
       <BookTourModal isOpen={isTourModalOpen} onClose={() => setIsTourModalOpen(false)} />
       <PreRegisterModal isOpen={isPreRegisterModalOpen} onClose={() => setIsPreRegisterModalOpen(false)} />
-      <PricingModal isOpen={isPricingModalOpen} onClose={() => setIsPricingModalOpen(false)} />
+      <PricingModal isOpen={isPricingModalOpen} onClose={() => setIsPricingModalOpen(false)} onOpenPreRegister={openPreRegisterModal} />
     </div>
   );
 }

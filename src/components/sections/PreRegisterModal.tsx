@@ -14,6 +14,7 @@ interface FormData {
   email: string;
   phone: string;
   company: string;
+  postalCode: string;
   spaceDesired: string;
   website?: string;
 }
@@ -23,6 +24,7 @@ interface FormErrors {
   email?: string;
   phone?: string;
   company?: string;
+  postalCode?: string;
   spaceDesired?: string;
   submit?: string;
 }
@@ -50,6 +52,17 @@ const formatPhoneNumber = (value: string): string => {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 };
 
+const formatPostalCode = (value: string): string => {
+  const cleaned = value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+  if (cleaned.length === 0) return '';
+  if (cleaned.length <= 3) return cleaned;
+  return `${cleaned.slice(0, 3)} ${cleaned.slice(3)}`;
+};
+
+const validatePostalCode = (postalCode: string): boolean => {
+  return /^[A-Z]\d[A-Z] \d[A-Z]\d$/.test(postalCode);
+};
+
 const validate = (data: FormData): FormErrors => {
   const errors: FormErrors = {};
 
@@ -73,6 +86,12 @@ const validate = (data: FormData): FormErrors => {
     errors.company = 'Please enter your company';
   }
 
+  if (!data.postalCode.trim()) {
+    errors.postalCode = 'Please enter your postal code';
+  } else if (!validatePostalCode(data.postalCode)) {
+    errors.postalCode = 'Please enter a valid postal code (A1A 1A1)';
+  }
+
   if (!data.spaceDesired) {
     errors.spaceDesired = 'Please select a space';
   }
@@ -86,6 +105,7 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
     email: '',
     phone: '',
     company: '',
+    postalCode: '',
     spaceDesired: '',
     website: '',
   });
@@ -96,7 +116,12 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (field: keyof FormData, value: string) => {
-    const formattedValue = field === 'phone' ? formatPhoneNumber(value) : value;
+    let formattedValue = value;
+    if (field === 'phone') {
+      formattedValue = formatPhoneNumber(value);
+    } else if (field === 'postalCode') {
+      formattedValue = formatPostalCode(value);
+    }
     setFormData((prev) => ({ ...prev, [field]: formattedValue }));
 
     if (touched[field]) {
@@ -123,6 +148,7 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
       email: true,
       phone: true,
       company: true,
+      postalCode: true,
       spaceDesired: true,
     });
 
@@ -155,6 +181,7 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
           email: formData.email,
           phone: formData.phone,
           company: formData.company,
+          postal_code: formData.postalCode,
           space_desired: formData.spaceDesired,
         },
       ]);
@@ -181,6 +208,7 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
       email: '',
       phone: '',
       company: '',
+      postalCode: '',
       spaceDesired: '',
       website: '',
     });
@@ -270,6 +298,18 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
                 error={touched.phone ? errors.phone : ''}
                 onChange={(value) => handleChange('phone', value)}
                 onBlur={() => handleBlur('phone')}
+                disabled={isLoading}
+              />
+
+              {/* Postal Code */}
+              <FormField
+                label="Postal Code"
+                placeholder="A1A 1A1"
+                type="text"
+                value={formData.postalCode}
+                error={touched.postalCode ? errors.postalCode : ''}
+                onChange={(value) => handleChange('postalCode', value)}
+                onBlur={() => handleBlur('postalCode')}
                 disabled={isLoading}
               />
 
