@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { Button, Headline, Body, Eyebrow } from '@/components/primitives';
+import { Button, Headline, Body, Eyebrow, FormField, SelectField } from '@/components/primitives';
 import { validateEmail } from '@/lib/validation';
 
 interface FormData {
@@ -206,7 +206,7 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
                       <div className="font-lato font-bold text-base text-[var(--lauft-darkest-grey)] uppercase tracking-wide mb-3.5">
                         What's your current working journey look like?
                       </div>
-                      <FormField
+                      <RoadmapFormField
                         field={field}
                         value={formData[field.key]}
                         error={touched[field.key] ? errors[field.key] : ''}
@@ -217,7 +217,7 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
                     </div>
                   )}
                   {field.key !== 'currentWorkspace' && (
-                    <FormField
+                    <RoadmapFormField
                       field={field}
                       value={formData[field.key]}
                       error={touched[field.key] ? errors[field.key] : ''}
@@ -256,7 +256,7 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
   );
 };
 
-interface FormFieldProps {
+interface RoadmapFormFieldProps {
   field: FormFieldDef;
   value: string;
   error: string | undefined;
@@ -265,80 +265,34 @@ interface FormFieldProps {
   disabled: boolean;
 }
 
-function FormField({ field, value, error, onChange, onBlur, disabled }: FormFieldProps) {
-  const [focus, setFocus] = useState(false);
-  const showError = !!error;
+function RoadmapFormField({ field, value, error, onChange, onBlur, disabled }: RoadmapFormFieldProps) {
   const isSelect = field.type === 'select';
-  const fieldId = `form-field-${field.key}`;
+
+  if (isSelect) {
+    return (
+      <SelectField
+        label={field.label}
+        value={value}
+        options={field.options || []}
+        error={error}
+        onChange={onChange}
+        onBlur={onBlur}
+        disabled={disabled}
+        placeholder={field.placeholder}
+      />
+    );
+  }
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <label
-        htmlFor={fieldId}
-        className="text-xs font-semibold text-[var(--lauft-darkest-grey)] uppercase tracking-wide"
-      >
-        {field.label}
-      </label>
-      <div
-        className={`
-          flex items-center gap-3 px-4.5 py-3.5 bg-white rounded
-          transition-all duration-180
-          ${
-            showError
-              ? 'border border-[var(--lauft-bright-berry)]'
-              : focus
-                ? 'border border-[var(--lauft-azure)] shadow-[0_0_0_3px_rgba(0,171,234,0.18)]'
-                : 'border border-[var(--lauft-darkest-grey)]'
-          }
-          ${disabled ? 'opacity-60' : ''}
-        `}
-      >
-        {isSelect ? (
-          <select
-            id={fieldId}
-            name={field.key}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            onFocus={() => setFocus(true)}
-            onBlur={() => {
-              setFocus(false);
-              onBlur();
-            }}
-            disabled={disabled}
-            className="flex-1 border-none outline-none bg-transparent font-lato font-medium text-base text-[var(--lauft-darkest-grey)] cursor-pointer"
-          >
-            <option value="" disabled>
-              {field.placeholder}
-            </option>
-            {field.options?.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <input
-            id={fieldId}
-            name={field.key}
-            type={field.type === 'email' ? 'email' : 'text'}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            onFocus={() => setFocus(true)}
-            onBlur={() => {
-              setFocus(false);
-              onBlur();
-            }}
-            placeholder={field.placeholder}
-            disabled={disabled}
-            className="flex-1 border-none outline-none bg-transparent font-lato font-medium text-base text-[var(--lauft-darkest-grey)] placeholder-gray-500"
-          />
-        )}
-      </div>
-      {showError && (
-        <span className="text-xs font-semibold text-[var(--lauft-bright-berry)] pl-1">
-          {error}
-        </span>
-      )}
-    </div>
+    <FormField
+      label={field.label}
+      placeholder={field.placeholder}
+      type={field.type === 'email' ? 'email' : 'text'}
+      value={value}
+      error={error}
+      onChange={onChange}
+      onBlur={onBlur}
+      disabled={disabled}
+    />
   );
 }
