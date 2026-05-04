@@ -30,15 +30,6 @@
 
   /* TERTIARY BRIGHTS */
   --lauft-bright-berry: #E63E51;
-  --lauft-faded-putty: #E5D5D3;
-  --lauft-warm-sun: #FFB15B;
-  --lauft-deep-purple: #3E2B56;
-
-  /* TERTIARY WARMS */
-  --lauft-bold-tangerine: #DC582A;
-  --lauft-vibrant-purple: #8246AF;
-  --lauft-neutral-sand: #C6A992;
-  --lauft-neutral-pink: #DC8699;
 
   /* SEMANTIC TOKENS */
   --bg: var(--lauft-white);
@@ -228,10 +219,6 @@ a:hover {
 
 .animation-delay-140 {
   animation-delay: 140ms;
-}
-
-.animation-delay-220 {
-  animation-delay: 220ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
