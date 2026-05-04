@@ -18,6 +18,8 @@ interface FormData {
   postalCode: string;
   spaceDesired: string;
   website?: string;
+  smsMarketing: boolean;
+  emailMarketing: boolean;
 }
 
 interface FormErrors {
@@ -83,6 +85,8 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
     postalCode: '',
     spaceDesired: '',
     website: '',
+    smsMarketing: false,
+    emailMarketing: false,
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -90,17 +94,19 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (field: keyof FormData, value: string) => {
-    let formattedValue = value;
-    if (field === 'phone') {
-      formattedValue = formatPhoneNumber(value);
-    } else if (field === 'postalCode') {
-      formattedValue = formatPostalCode(value);
+  const handleChange = (field: keyof FormData, value: string | boolean) => {
+    let formattedValue: string | boolean = value;
+    if (typeof value === 'string') {
+      if (field === 'phone') {
+        formattedValue = formatPhoneNumber(value);
+      } else if (field === 'postalCode') {
+        formattedValue = formatPostalCode(value);
+      }
     }
     setFormData((prev) => ({ ...prev, [field]: formattedValue }));
 
     if (touched[field]) {
-      const newErrors = validate({ ...formData, [field]: formattedValue });
+      const newErrors = validate({ ...formData, [field]: formattedValue as string });
       setErrors(newErrors);
     }
   };
@@ -149,6 +155,8 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
           company: formData.company,
           postal_code: formData.postalCode,
           space_desired: formData.spaceDesired,
+          sms_marketing: formData.smsMarketing,
+          email_marketing: formData.emailMarketing,
         }),
       });
 
@@ -179,6 +187,8 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
       postalCode: '',
       spaceDesired: '',
       website: '',
+      smsMarketing: false,
+      emailMarketing: false,
     });
     setErrors({});
     setTouched({});
@@ -303,6 +313,34 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
                 onBlur={() => handleBlur('spaceDesired')}
                 disabled={isLoading}
               />
+
+              {/* Marketing Consent Checkboxes */}
+              <div className="flex flex-col gap-3.5 mt-2 mb-2">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.smsMarketing}
+                    onChange={(e) => handleChange('smsMarketing', e.target.checked)}
+                    disabled={isLoading}
+                    className="mt-1 w-4 h-4 rounded border border-[var(--lauft-mid-grey)] accent-[var(--lauft-azure)] cursor-pointer"
+                  />
+                  <span className="text-sm text-[var(--lauft-darkest-grey)] font-lato leading-relaxed">
+                    I agree to receive SMS marketing
+                  </span>
+                </label>
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.emailMarketing}
+                    onChange={(e) => handleChange('emailMarketing', e.target.checked)}
+                    disabled={isLoading}
+                    className="mt-1 w-4 h-4 rounded border border-[var(--lauft-mid-grey)] accent-[var(--lauft-azure)] cursor-pointer"
+                  />
+                  <span className="text-sm text-[var(--lauft-darkest-grey)] font-lato leading-relaxed">
+                    I agree to receive email marketing
+                  </span>
+                </label>
+              </div>
 
               {/* Honeypot field - hidden from users */}
               <input

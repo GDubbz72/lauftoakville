@@ -9,13 +9,15 @@ interface PreRegistrationRequest {
   postal_code: string;
   space_desired: string;
   website?: string;
+  sms_marketing?: boolean;
+  email_marketing?: boolean;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as PreRegistrationRequest;
 
-    const { name, email, phone, company, postal_code, space_desired, website } = body;
+    const { name, email, phone, company, postal_code, space_desired, website, sms_marketing, email_marketing } = body;
 
     if (website) {
       return NextResponse.json(
@@ -63,6 +65,8 @@ export async function POST(request: NextRequest) {
           company,
           postal_code,
           space_desired,
+          sms_marketing: sms_marketing ?? false,
+          email_marketing: email_marketing ?? false,
         },
       ]);
 
