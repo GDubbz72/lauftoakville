@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Button, Headline, Body } from '@/components/primitives';
+import { validatePhone, validateEmail, validatePostalCode } from '@/lib/validation';
+import { formatPhoneNumber, formatPostalCode } from '@/lib/formatters';
 
 interface PreRegisterModalProps {
   isOpen: boolean;
@@ -35,32 +37,6 @@ const spaceOptions = [
   { value: '5-plus', label: '5+ People' },
 ];
 
-const validatePhone = (phone: string): boolean => {
-  return /^[\d\s\-\+\(\)]+$/.test(phone) && phone.replace(/\D/g, '').length >= 10;
-};
-
-const validateEmail = (email: string): boolean => {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-};
-
-const formatPhoneNumber = (value: string): string => {
-  const digits = value.replace(/\D/g, '').slice(0, 10);
-  if (digits.length === 0) return '';
-  if (digits.length <= 3) return `(${digits}`;
-  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-};
-
-const formatPostalCode = (value: string): string => {
-  const cleaned = value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
-  if (cleaned.length === 0) return '';
-  if (cleaned.length <= 3) return cleaned;
-  return `${cleaned.slice(0, 3)} ${cleaned.slice(3)}`;
-};
-
-const validatePostalCode = (postalCode: string): boolean => {
-  return /^[A-Z]\d[A-Z] \d[A-Z]\d$/.test(postalCode);
-};
 
 const validate = (data: FormData): FormErrors => {
   const errors: FormErrors = {};

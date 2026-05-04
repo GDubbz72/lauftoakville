@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Button, Body } from '@/components/primitives';
+import { validateEmail } from '@/lib/validation';
 
 interface FooterLink {
   label: string;
@@ -45,14 +46,10 @@ const footerLinks: FooterLinkGroup[] = [
       { label: 'LinkedIn', action: 'link', href: 'https://www.linkedin.com/company/lauft-flexible-workspace-network', target: '_blank' },
       { label: 'X', action: 'link', href: 'https://x.com/LAUFTworkspace', target: '_blank' },
       { label: 'YouTube', action: 'link', href: 'https://www.youtube.com/channel/UC0SoH8KGB4_oggG4FO9Metw', target: '_blank' },
-      { label: 'TikTok', action: 'link', href: 'https://www.tiktok.com/@lauftworkspace', target: '_blank' },
     ],
   },
 ];
 
-const validateEmail = (email: string): boolean => {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-};
 
 interface FooterProps {
   onPricing?: () => void;
@@ -191,9 +188,22 @@ export const Footer = ({ onPricing }: FooterProps) => {
         <div className="border-t border-white border-opacity-12 pt-5 flex flex-col lg:flex-row justify-between items-center gap-4 font-lato text-xs text-white text-opacity-55">
           <span>© 2026 LAUFT. Make Smart Work.™</span>
           <div className="flex gap-6">
-            <FooterLink small>Privacy</FooterLink>
-            <FooterLink small>Terms</FooterLink>
-            <FooterLink small>Cookies</FooterLink>
+            <a
+              href="https://lauft.work/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-lato font-medium transition-colors duration-180 text-xs text-white text-opacity-55 hover:text-opacity-100"
+            >
+              Privacy
+            </a>
+            <a
+              href="https://lauft.work/terms-of-use"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-lato font-medium transition-colors duration-180 text-xs text-white text-opacity-55 hover:text-opacity-100"
+            >
+              Terms
+            </a>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { Button, Headline, Body, Eyebrow } from '@/components/primitives';
+import { validateEmail } from '@/lib/validation';
 
 interface FormData {
   name: string;
@@ -50,9 +51,6 @@ const formFields: FormFieldDef[] = [
   { key: 'companySize', label: 'Company Size', placeholder: 'Select company size', type: 'select', options: companySizeOptions },
 ];
 
-const validateEmail = (email: string): boolean => {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-};
 
 const validate = (data: FormData): FormErrors => {
   const errors: FormErrors = {};
