@@ -9,6 +9,7 @@ interface FormData {
   email: string;
   currentWorkspace: string;
   companySize: string;
+  website: string;
 }
 
 interface FormErrors {
@@ -16,6 +17,7 @@ interface FormErrors {
   email?: string;
   currentWorkspace?: string;
   companySize?: string;
+  website?: string;
   submit?: string;
 }
 
@@ -86,6 +88,7 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
     email: '',
     currentWorkspace: '',
     companySize: '',
+    website: '',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -110,6 +113,10 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (formData.website) {
+      return;
+    }
 
     // Mark all fields as touched
     setTouched({
@@ -199,6 +206,17 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
 
           {!submitted ? (
             <>
+              {/* Honeypot field - hidden from users */}
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={(e) => handleChange('website', e.target.value)}
+                style={{ display: 'none' }}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+
               {formFields.map((field, index) => (
                 <div key={field.key}>
                   {field.key === 'currentWorkspace' && (

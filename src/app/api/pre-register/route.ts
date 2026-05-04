@@ -8,13 +8,21 @@ interface PreRegistrationRequest {
   company: string;
   postal_code: string;
   space_desired: string;
+  website?: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as PreRegistrationRequest;
 
-    const { name, email, phone, company, postal_code, space_desired } = body;
+    const { name, email, phone, company, postal_code, space_desired, website } = body;
+
+    if (website) {
+      return NextResponse.json(
+        { error: 'Invalid submission' },
+        { status: 400 }
+      );
+    }
 
     if (!name || !email || !phone || !company || !postal_code || !space_desired) {
       return NextResponse.json(

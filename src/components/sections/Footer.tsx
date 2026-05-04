@@ -57,6 +57,7 @@ interface FooterProps {
 
 export const Footer = ({ onPricing }: FooterProps) => {
   const [emailInput, setEmailInput] = useState('');
+  const [websiteInput, setWebsiteInput] = useState('');
   const [subscribeLoading, setSubscribeLoading] = useState(false);
   const [subscribeError, setSubscribeError] = useState('');
   const [subscribeSuccess, setSubscribeSuccess] = useState(false);
@@ -64,6 +65,10 @@ export const Footer = ({ onPricing }: FooterProps) => {
   const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubscribeError('');
+
+    if (websiteInput) {
+      return;
+    }
 
     if (!emailInput.trim()) {
       setSubscribeError('Please enter your email');
@@ -134,6 +139,15 @@ export const Footer = ({ onPricing }: FooterProps) => {
 
             {/* Newsletter signup */}
             <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
+              <input
+                type="text"
+                name="website"
+                value={websiteInput}
+                onChange={(e) => setWebsiteInput(e.target.value)}
+                style={{ display: 'none' }}
+                tabIndex={-1}
+                autoComplete="off"
+              />
               <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="email"

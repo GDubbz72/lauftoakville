@@ -6,13 +6,21 @@ interface RoadmapRequest {
   email: string;
   current_workspace: string;
   company_size: string;
+  website?: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as RoadmapRequest;
 
-    const { name, email, current_workspace, company_size } = body;
+    const { name, email, current_workspace, company_size, website } = body;
+
+    if (website) {
+      return NextResponse.json(
+        { error: 'Invalid submission' },
+        { status: 400 }
+      );
+    }
 
     if (!name || !email || !current_workspace || !company_size) {
       return NextResponse.json(

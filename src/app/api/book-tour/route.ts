@@ -6,13 +6,21 @@ interface BookTourRequest {
   email: string;
   phone: string;
   postal_code: string;
+  website?: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as BookTourRequest;
 
-    const { name, email, phone, postal_code } = body;
+    const { name, email, phone, postal_code, website } = body;
+
+    if (website) {
+      return NextResponse.json(
+        { error: 'Invalid submission' },
+        { status: 400 }
+      );
+    }
 
     if (!name || !email || !phone || !postal_code) {
       return NextResponse.json(

@@ -3,13 +3,21 @@ import { supabase } from '@/lib/supabase-server';
 
 interface NewsletterRequest {
   email: string;
+  website?: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as NewsletterRequest;
 
-    const { email } = body;
+    const { email, website } = body;
+
+    if (website) {
+      return NextResponse.json(
+        { error: 'Invalid submission' },
+        { status: 400 }
+      );
+    }
 
     if (!email) {
       return NextResponse.json(
