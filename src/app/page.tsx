@@ -5,6 +5,7 @@ import {
   Navbar,
   Hero,
   OfficeAndContact,
+  LocationMap,
   WhyOakville,
   VirtualTour,
   Roadmap,
@@ -48,6 +49,7 @@ export default function Home() {
         <div className="animate-fadeUp animation-delay-140">
           <OfficeAndContact onBookTour={openTourModal} onContact={scrollToRegister} />
         </div>
+        <LocationMap />
         <WhyOakville onRegister={openPreRegisterModal} />
         <VirtualTour onTour={scrollToRegister} />
         <Roadmap registrationRef={registerRef} />

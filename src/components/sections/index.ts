@@ -1,6 +1,7 @@
 export { Navbar } from './Navbar';
 export { Hero } from './Hero';
 export { OfficeAndContact } from './OfficeAndContact';
+export { LocationMap } from './LocationMap';
 export { WhyOakville } from './WhyOakville';
 export { VirtualTour } from './VirtualTour';
 export { Roadmap } from './Roadmap';
