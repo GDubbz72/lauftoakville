@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Button, Body } from '@/components/primitives';
-import { supabase, validateSupabaseConfig } from '@/lib/supabase';
 
 interface FooterLink {
   label: string;
@@ -82,21 +81,20 @@ export const Footer = ({ onPricing }: FooterProps) => {
     setSubscribeLoading(true);
 
     try {
-      const { error } = await supabase.from('lauft_newsletter').insert([
-        {
-          email: emailInput.trim().toLowerCase(),
-          created_at: new Date().toISOString(),
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      ]);
+        body: JSON.stringify({
+          email: emailInput,
+        }),
+      });
 
-      if (error) {
-        if (error.message?.includes('duplicate') || error.code === '23505') {
-          setSubscribeError('Already subscribed!');
-        } else if (!validateSupabaseConfig()) {
-          setSubscribeError('Newsletter not configured yet');
-        } else {
-          setSubscribeError('Failed to subscribe. Try again.');
-        }
+      const data = await response.json();
+
+      if (!response.ok) {
+        setSubscribeError(data.error || 'Failed to subscribe. Try again.');
         setSubscribeLoading(false);
         return;
       }

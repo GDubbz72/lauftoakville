@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { supabase, validateSupabaseConfig } from '@/lib/supabase';
 import { Button, Headline, Body, Eyebrow } from '@/components/primitives';
 
 interface FormData {
@@ -132,29 +131,26 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
     setIsLoading(true);
 
     try {
-      if (!validateSupabaseConfig()) {
-        setErrors({ submit: 'Form submission is not configured. Please check back later.' });
-        setIsLoading(false);
-        return;
-      }
-
-      const { error } = await supabase.from('oakville_registrations').insert([
-        {
-          name: formData.name.trim(),
-          email: formData.email.trim().toLowerCase(),
+      const response = await fetch('/api/roadmap', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
           current_workspace: formData.currentWorkspace,
           company_size: formData.companySize,
-          created_at: new Date().toISOString(),
-        },
-      ]);
+        }),
+      });
 
-      if (error) {
-        setErrors({ submit: 'Failed to submit. Please try again.' });
-        setIsLoading(false);
-        return;
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrors({ submit: data.error || 'Failed to submit. Please try again.' });
+      } else {
+        setSubmitted(true);
       }
-
-      setSubmitted(true);
     } catch {
       setErrors({ submit: 'An error occurred. Please try again.' });
     } finally {
@@ -275,9 +271,16 @@ function FormField({ field, value, error, onChange, onBlur, disabled }: FormFiel
   const [focus, setFocus] = useState(false);
   const showError = !!error;
   const isSelect = field.type === 'select';
+  const fieldId = `form-field-${field.key}`;
 
   return (
     <div className="flex flex-col gap-1.5">
+      <label
+        htmlFor={fieldId}
+        className="text-xs font-semibold text-[var(--lauft-darkest-grey)] uppercase tracking-wide"
+      >
+        {field.label}
+      </label>
       <div
         className={`
           flex items-center gap-3 px-4.5 py-3.5 bg-white rounded
@@ -294,6 +297,8 @@ function FormField({ field, value, error, onChange, onBlur, disabled }: FormFiel
       >
         {isSelect ? (
           <select
+            id={fieldId}
+            name={field.key}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             onFocus={() => setFocus(true)}
@@ -302,7 +307,6 @@ function FormField({ field, value, error, onChange, onBlur, disabled }: FormFiel
               onBlur();
             }}
             disabled={disabled}
-            aria-label={field.label}
             className="flex-1 border-none outline-none bg-transparent font-lato font-medium text-base text-[var(--lauft-darkest-grey)] cursor-pointer"
           >
             <option value="" disabled>
@@ -316,6 +320,8 @@ function FormField({ field, value, error, onChange, onBlur, disabled }: FormFiel
           </select>
         ) : (
           <input
+            id={fieldId}
+            name={field.key}
             type={field.type === 'email' ? 'email' : 'text'}
             value={value}
             onChange={(e) => onChange(e.target.value)}
@@ -326,7 +332,6 @@ function FormField({ field, value, error, onChange, onBlur, disabled }: FormFiel
             }}
             placeholder={field.placeholder}
             disabled={disabled}
-            aria-label={field.label}
             className="flex-1 border-none outline-none bg-transparent font-lato font-medium text-base text-[var(--lauft-darkest-grey)] placeholder-gray-500"
           />
         )}

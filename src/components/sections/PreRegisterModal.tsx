@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Button, Headline, Body } from '@/components/primitives';
-import { supabase } from '@/lib/supabase';
 
 interface PreRegisterModalProps {
   isOpen: boolean;
@@ -162,32 +161,25 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
     setIsLoading(true);
 
     try {
-      const { data: existingSubmission } = await supabase
-        .from('pre_registrations')
-        .select('id')
-        .eq('email', formData.email)
-        .gte('created_at', new Date(Date.now() - 3600000).toISOString())
-        .limit(1);
-
-      if (existingSubmission && existingSubmission.length > 0) {
-        setErrors({ submit: 'Please wait before submitting again.' });
-        setIsLoading(false);
-        return;
-      }
-
-      const { error } = await supabase.from('pre_registrations').insert([
-        {
+      const response = await fetch('/api/pre-register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
           company: formData.company,
           postal_code: formData.postalCode,
           space_desired: formData.spaceDesired,
-        },
-      ]);
+        }),
+      });
 
-      if (error) {
-        setErrors({ submit: 'Failed to submit. Please try again.' });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrors({ submit: data.error || 'Failed to submit. Please try again.' });
       } else {
         setSubmitted(true);
 
@@ -412,10 +404,14 @@ function FormField({
 }: FormFieldProps) {
   const [focus, setFocus] = useState(false);
   const showError = !!error;
+  const fieldId = `form-field-${label.toLowerCase().replace(/\s+/g, '-')}`;
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-[var(--lauft-darkest-grey)] uppercase tracking-wide">
+      <label
+        htmlFor={fieldId}
+        className="text-xs font-semibold text-[var(--lauft-darkest-grey)] uppercase tracking-wide"
+      >
         {label}
       </label>
       <div
@@ -433,6 +429,8 @@ function FormField({
         `}
       >
         <input
+          id={fieldId}
+          name={label.toLowerCase().replace(/\s+/g, '-')}
           type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -443,7 +441,6 @@ function FormField({
           }}
           placeholder={placeholder}
           disabled={disabled}
-          aria-label={label}
           className="flex-1 border-none outline-none bg-transparent font-lato font-medium text-base text-[var(--lauft-darkest-grey)] placeholder-gray-500"
         />
       </div>
@@ -477,10 +474,14 @@ function SelectField({
 }: SelectFieldProps) {
   const [focus, setFocus] = useState(false);
   const showError = !!error;
+  const fieldId = `form-field-${label.toLowerCase().replace(/\s+/g, '-')}`;
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-[var(--lauft-darkest-grey)] uppercase tracking-wide">
+      <label
+        htmlFor={fieldId}
+        className="text-xs font-semibold text-[var(--lauft-darkest-grey)] uppercase tracking-wide"
+      >
         {label}
       </label>
       <div
@@ -498,6 +499,8 @@ function SelectField({
         `}
       >
         <select
+          id={fieldId}
+          name={label.toLowerCase().replace(/\s+/g, '-')}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onFocus={() => setFocus(true)}
@@ -506,7 +509,6 @@ function SelectField({
             onBlur();
           }}
           disabled={disabled}
-          aria-label={label}
           className="flex-1 border-none outline-none bg-transparent font-lato font-medium text-base text-[var(--lauft-darkest-grey)] cursor-pointer"
         >
           <option value="" disabled>

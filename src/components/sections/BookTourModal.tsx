@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Button, Headline, Body } from '@/components/primitives';
-import { supabase } from '@/lib/supabase';
 
 interface BookTourModalProps {
   isOpen: boolean;
@@ -139,30 +138,23 @@ export const BookTourModal = ({ isOpen, onClose }: BookTourModalProps) => {
     setIsLoading(true);
 
     try {
-      const { data: existingSubmission } = await supabase
-        .from('book_tours')
-        .select('id')
-        .eq('email', formData.email)
-        .gte('created_at', new Date(Date.now() - 3600000).toISOString())
-        .limit(1);
-
-      if (existingSubmission && existingSubmission.length > 0) {
-        setErrors({ submit: 'Please wait before submitting again.' });
-        setIsLoading(false);
-        return;
-      }
-
-      const { error } = await supabase.from('book_tours').insert([
-        {
+      const response = await fetch('/api/book-tour', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
           postal_code: formData.postalCode,
-        },
-      ]);
+        }),
+      });
 
-      if (error) {
-        setErrors({ submit: 'Failed to submit. Please try again.' });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrors({ submit: data.error || 'Failed to submit. Please try again.' });
       } else {
         setSubmitted(true);
 
@@ -352,10 +344,14 @@ function FormField({
 }: FormFieldProps) {
   const [focus, setFocus] = useState(false);
   const showError = !!error;
+  const fieldId = `form-field-${label.toLowerCase().replace(/\s+/g, '-')}`;
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-[var(--lauft-darkest-grey)] uppercase tracking-wide">
+      <label
+        htmlFor={fieldId}
+        className="text-xs font-semibold text-[var(--lauft-darkest-grey)] uppercase tracking-wide"
+      >
         {label}
       </label>
       <div
@@ -373,6 +369,8 @@ function FormField({
         `}
       >
         <input
+          id={fieldId}
+          name={label.toLowerCase().replace(/\s+/g, '-')}
           type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -383,7 +381,6 @@ function FormField({
           }}
           placeholder={placeholder}
           disabled={disabled}
-          aria-label={label}
           className="flex-1 border-none outline-none bg-transparent font-lato font-medium text-base text-[var(--lauft-darkest-grey)] placeholder-gray-500"
         />
       </div>
