@@ -34,7 +34,6 @@ const footerLinks: FooterLinkGroup[] = [
       { label: 'Burlington Centre', action: 'link', href: 'https://lauft.work/locations/burlingtoncentre', target: '_blank' },
       { label: 'EVNT by LAUFT', action: 'link', href: 'https://lauft.work/locations/evntbylauft', target: '_blank' },
       { label: 'King East', action: 'link', href: 'https://lauft.work/locations/kingeast', target: '_blank' },
-      { label: 'Oakville', action: 'link', href: 'https://lauft.work/locations/oakville', target: '_blank' },
       { label: 'Prime Storage Ajax', action: 'link', href: 'https://lauft.work/locations/primestorageajax', target: '_blank' },
       { label: 'Prime Storage Castlefield', action: 'link', href: 'https://lauft.work/locations/primestoragecastlefield', target: '_blank' },
     ],
