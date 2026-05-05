@@ -6,6 +6,7 @@ import {
   Hero,
   OfficeAndContact,
   LocationMap,
+  ClientLogos,
   WhyOakville,
   VirtualTour,
   Roadmap,
@@ -50,6 +51,7 @@ export default function Home() {
           <OfficeAndContact onBookTour={openTourModal} onContact={scrollToRegister} />
         </div>
         <LocationMap />
+        <ClientLogos />
         <WhyOakville onRegister={openPreRegisterModal} />
         <VirtualTour onTour={scrollToRegister} />
         <Roadmap registrationRef={registerRef} />
