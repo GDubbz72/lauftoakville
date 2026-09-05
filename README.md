@@ -1,12 +1,12 @@
-# LAUFT Oakville Landing Page
+# LAUFT Muskoka Landing Page
 
-A production-ready, conversion-focused landing page for LAUFT Oakville built with Next.js, React, Tailwind CSS, and Supabase.
+A production-ready, conversion-focused landing page for LAUFT Muskoka built with Next.js, React, Tailwind CSS, and Supabase.
 
 ## Overview
 
-This is a fully-featured landing page built to recruit and pre-register people interested in working at LAUFT Oakville. It includes:
+This is a fully-featured landing page built to recruit and pre-register people interested in working at LAUFT Muskoka. It includes:
 
-- **8 Modular Sections:** Navbar, Hero, Office & Contact, Why Oakville, Virtual Tour, Roadmap Form, Final CTA, Footer
+- **8 Modular Sections:** Navbar, Hero, Office & Contact, Why Muskoka, Virtual Tour, Roadmap Form, Final CTA, Footer
 - **Supabase Integration:** Form submissions saved directly to PostgreSQL database
 - **Security-First:** Input validation, XSS prevention, CSRF protection, RLS-protected database
 - **Performance:** Optimized images, code-splitting, static generation, Lighthouse 90+

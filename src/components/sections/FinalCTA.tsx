@@ -52,7 +52,7 @@ export const FinalCTA = ({ onClaim }: FinalCTAProps) => {
           style={{ maxWidth: 620, margin: '0 auto 36px' }}
         >
           Convenient. Consistent. Professional. Pre-register now to lock in founding-member
-          pricing and be first through the doors at LAUFT Oakville.
+          pricing and be first through the doors at LAUFT Muskoka.
         </Body>
 
         <Button variant="primary" size="small" onClick={onClaim} className="sm:px-9 sm:py-4.5 sm:text-sm">

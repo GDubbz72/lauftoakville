@@ -7,7 +7,7 @@ import {
   OfficeAndContact,
   LocationMap,
   ClientLogos,
-  WhyOakville,
+  WhyMuskoka,
   VirtualTour,
   Roadmap,
   FinalCTA,
@@ -52,7 +52,7 @@ export default function Home() {
         </div>
         <LocationMap />
         <ClientLogos />
-        <WhyOakville onRegister={openPreRegisterModal} />
+        <WhyMuskoka onRegister={openPreRegisterModal} />
         <VirtualTour onTour={scrollToRegister} />
         <Roadmap registrationRef={registerRef} />
         <FinalCTA onClaim={openPreRegisterModal} />

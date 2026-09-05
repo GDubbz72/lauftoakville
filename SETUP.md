@@ -1,4 +1,4 @@
-# LAUFT Oakville Landing Page - Setup Guide
+# LAUFT Muskoka Landing Page - Setup Guide
 
 ## Quick Start
 
@@ -30,7 +30,7 @@ In Supabase dashboard, go to SQL Editor and run:
 
 ```sql
 -- Pre-Registration & Roadmap Form Table
-CREATE TABLE oakville_registrations (
+CREATE TABLE muskoka_registrations (
   id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   name TEXT NOT NULL,
   email TEXT NOT NULL,
@@ -40,14 +40,14 @@ CREATE TABLE oakville_registrations (
 );
 
 -- Enable RLS (Row Level Security)
-ALTER TABLE oakville_registrations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE muskoka_registrations ENABLE ROW LEVEL SECURITY;
 
 -- Allow public inserts
-CREATE POLICY "Allow public inserts" ON oakville_registrations
+CREATE POLICY "Allow public inserts" ON muskoka_registrations
   FOR INSERT WITH CHECK (true);
 
 -- Create index on email for faster lookups
-CREATE INDEX idx_oakville_email ON oakville_registrations(email);
+CREATE INDEX idx_muskoka_email ON muskoka_registrations(email);
 
 -- Newsletter Subscription Table
 CREATE TABLE lauft_newsletter (
@@ -138,7 +138,7 @@ src/
 │       ├── Navbar.tsx
 │       ├── Hero.tsx
 │       ├── OfficeAndContact.tsx
-│       ├── WhyOakville.tsx
+│       ├── WhyMuskoka.tsx
 │       ├── VirtualTour.tsx
 │       ├── Roadmap.tsx     # Pre-registration form with Supabase
 │       ├── FinalCTA.tsx
@@ -149,7 +149,7 @@ src/
 
 ## Form Submission
 
-The pre-registration form (`Roadmap.tsx`) submits to the `oakville_registrations` table with:
+The pre-registration form (`Roadmap.tsx`) submits to the `muskoka_registrations` table with:
 - `name` (required)
 - `email` (required, validated)
 - `company` (required)
@@ -234,7 +234,7 @@ Make sure to set environment variables in your hosting platform.
 
 ### Form submissions failing
 - Check `.env.local` has correct Supabase credentials
-- Verify `oakville_registrations` table exists
+- Verify `muskoka_registrations` table exists
 - Check RLS policies allow inserts
 - Check browser console for errors
 
@@ -250,6 +250,6 @@ Make sure to set environment variables in your hosting platform.
 
 ## Support
 
-For questions about the design, see the original design handoff in `/oakville-landing-page`.
+For questions about the design, see the original design handoff in `/muskoka-landing-page`.
 
 For LAUFT branding questions, contact the brand team.

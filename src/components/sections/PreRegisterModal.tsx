@@ -233,7 +233,7 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
               weight={500}
               style={{ marginBottom: 28 }}
             >
-              Lock in founding-member pricing and be first through the doors at LAUFT Oakville.
+              Lock in founding-member pricing and be first through the doors at LAUFT Muskoka.
             </Body>
 
             <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3.5">
@@ -386,7 +386,7 @@ export const PreRegisterModal = ({ isOpen, onClose }: PreRegisterModalProps) => 
               You're on the list!
             </Headline>
             <Body size={14} color="#5B6771" weight={500}>
-              Thanks {formData.name.split(' ')[0]}! We'll send Oakville opening details and founding-member pricing soon.
+              Thanks {formData.name.split(' ')[0]}! We'll send Muskoka opening details and founding-member pricing soon.
             </Body>
           </div>
         )}

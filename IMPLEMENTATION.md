@@ -1,10 +1,10 @@
-# LAUFT Oakville Landing Page - Implementation Summary
+# LAUFT Muskoka Landing Page - Implementation Summary
 
 ## ✅ What Was Built
 
 A production-ready, fully-functional landing page implementing the design handoff with best practices for security, performance, accessibility, and conversion.
 
-### Project: `/Users/grahamwong/Antigravity/oakville-app`
+### Project: `/Users/grahamwong/Antigravity/muskoka-app`
 
 ---
 
@@ -62,7 +62,7 @@ Self-contained page sections, each handling its own state and interactions:
 1. **Navbar** — Sticky header with hover effects, email link, Pre-Register CTA
 2. **Hero** — Full-bleed background image, animated headline with circled text, large CTA
 3. **OfficeAndContact** — Two-column layout (office copy + Mel testimonial card)
-4. **WhyOakville** — Three benefit cards with inline SVG icons
+4. **WhyMuskoka** — Three benefit cards with inline SVG icons
 5. **VirtualTour** — Dark card with video poster, play button overlay, "now playing" state
 6. **Roadmap** — Pre-register form with validation, Supabase submission, success confirmation
 7. **FinalCTA** — Black CTA section with blended image, "Seize the Moment" headline
@@ -93,7 +93,7 @@ Self-contained page sections, each handling its own state and interactions:
 
 #### Database Integration
 - Connects to Supabase PostgreSQL via @supabase/supabase-js
-- Inserts into `oakville_registrations` table
+- Inserts into `muskoka_registrations` table
 - Automatic timestamp capture
 - Handles network errors gracefully
 - Validates Supabase config before submission
@@ -159,7 +159,7 @@ Self-contained page sections, each handling its own state and interactions:
 ## File Manifest
 
 ```
-oakville-app/
+muskoka-app/
 ├── public/
 │   ├── assets/
 │   │   ├── imagery/      # Hero, office, Mel, tour, workspace images
@@ -183,7 +183,7 @@ oakville-app/
 │   │       ├── Navbar.tsx
 │   │       ├── Hero.tsx
 │   │       ├── OfficeAndContact.tsx
-│   │       ├── WhyOakville.tsx
+│   │       ├── WhyMuskoka.tsx
 │   │       ├── VirtualTour.tsx
 │   │       ├── Roadmap.tsx
 │   │       ├── FinalCTA.tsx
@@ -312,7 +312,7 @@ All components use Tailwind classes. Edit `className` attributes. Common pattern
 
 **Form submissions not working?**
 - Check `.env.local` has correct Supabase URL and key
-- Verify database table exists: `oakville_registrations`
+- Verify database table exists: `muskoka_registrations`
 - Check RLS policies allow inserts
 - Look for errors in browser console (F12)
 

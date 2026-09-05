@@ -15,11 +15,11 @@ export const LocationMap = () => {
                 Location
               </div>
               <div className="font-lato font-black text-lg text-[var(--lauft-darkest-grey)] mb-3">
-                LAUFT Oakville
+                LAUFT Muskoka
               </div>
               <Body size={15} color="#1D252C" weight={500} style={{ lineHeight: '1.6' }}>
-                297 Oak Walk Drive<br />
-                Oakville, ON L6H 3R6<br />
+                Bracebridge<br />
+                Muskoka, ON P1L 0A1<br />
                 Canada
               </Body>
             </div>
@@ -38,7 +38,7 @@ export const LocationMap = () => {
           {/* Right: Map */}
           <div className="rounded-2xl overflow-hidden shadow-sm">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.8243179999997!2d-79.2638!3d43.4516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b7b8b8b8b8b8b%3A0x8b8b8b8b8b8b8b8b!2s297%20Oak%20Walk%20Dr%2C%20Oakville%2C%20ON%20L6H%203R6!5e0!3m2!1sen!2sca!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2887.0!2d-79.3167!3d45.0333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cce0c0c0c0c0c0d%3A0x0!2sBracebridge%2C%20Muskoka%2C%20ON%20P1L%200A1!5e0!3m2!1sen!2sca!4v1234567890"
               width="100%"
               height="400"
               style={{ border: 0 }}
