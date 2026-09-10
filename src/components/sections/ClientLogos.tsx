@@ -3,16 +3,14 @@
 import Image from 'next/image';
 
 const logos = [
-  { src: '/assets/imagery/grey/carnatic.png', alt: 'Carnatic' },
-  { src: '/assets/imagery/grey/chalu.png', alt: 'Chalu' },
-  { src: '/assets/imagery/grey/coco.png', alt: 'Coco' },
-  { src: '/assets/imagery/grey/dearcroft.png', alt: 'Dearcroft' },
-  { src: '/assets/imagery/grey/funhq.png', alt: 'FunHQ' },
-  { src: '/assets/imagery/grey/kiwi.png', alt: 'Kiwi' },
-  { src: '/assets/imagery/grey/pizzanova.png', alt: 'Pizzanova' },
-  { src: '/assets/imagery/grey/strong.png', alt: 'Strong' },
-  { src: '/assets/imagery/grey/sarang.png', alt: 'Sarang' },
-  { src: '/assets/imagery/grey/keg.png', alt: 'Keg' },
+  { src: '/assets/imagery/grey/algonquin.png', alt: 'Algonquin' },
+  { src: '/assets/imagery/grey/bbm.png', alt: 'BBM' },
+  { src: '/assets/imagery/grey/mainst_local.png', alt: 'Main St Local' },
+  { src: '/assets/imagery/grey/nutty.png', alt: 'Nutty' },
+  { src: '/assets/imagery/grey/otd.png', alt: 'OTD' },
+  { src: '/assets/imagery/grey/pharmasave.png', alt: 'Pharma Save' },
+  { src: '/assets/imagery/grey/the_hudson.png', alt: 'The Hudson' },
+  { src: '/assets/imagery/grey/threshhold.png', alt: 'Threshold' },
 ];
 
 export const ClientLogos = () => {
@@ -25,7 +23,7 @@ export const ClientLogos = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-[10px]">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px]">
           {logos.map((logo) => (
             <div key={logo.alt} className="flex items-center justify-center">
               <Image

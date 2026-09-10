@@ -13,12 +13,12 @@ export const Hero = ({ onRegister }: HeroProps) => {
       <div
         className="relative w-full min-h-[400px] sm:min-h-[520px] lg:min-h-[620px] rounded-[32px] overflow-hidden"
         style={{
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%), url(/assets/imagery/hero_oakville.png) center / cover no-repeat',
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%), url(/assets/imagery/hero_muskoka.png) center / cover no-repeat',
         }}
       >
         <Image
-          src="/assets/imagery/hero_oakville.png"
-          alt="Oakville workspace"
+          src="/assets/imagery/hero_muskoka.png"
+          alt="Muskoka workspace"
           fill
           className="absolute inset-0 object-cover -z-10"
           priority
@@ -34,7 +34,7 @@ export const Hero = ({ onRegister }: HeroProps) => {
           <div className="flex flex-col gap-6 sm:flex-row sm:justify-between sm:items-end sm:gap-12 mt-auto">
             <div className="max-w-[980px] w-full">
               <Headline color="#fff" style={{ fontSize: 'clamp(44px, 10vw, 104px)', marginBottom: 6 }}>
-                Oakville…
+                Muskoka…
               </Headline>
               <Headline color="#fff" style={{ fontSize: 'clamp(44px, 10vw, 104px)', marginBottom: 6 }}>
                 Your New Commute

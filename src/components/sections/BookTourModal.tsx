@@ -190,7 +190,7 @@ export const BookTourModal = ({ isOpen, onClose }: BookTourModalProps) => {
               weight={500}
               style={{ marginBottom: 28 }}
             >
-              Schedule a walkthrough of LAUFT Oakville and see the space in person.
+              Schedule a walkthrough of LAUFT Muskoka and see the space in person.
             </Body>
 
             <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3.5">

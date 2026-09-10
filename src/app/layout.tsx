@@ -2,20 +2,20 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'LAUFT Oakville — Your New Commute Starts Here',
+  title: 'LAUFT Muskoka — Your New Commute Starts Here',
   description:
-    'Pre-register for LAUFT Oakville, the new flexible workspace location. Skip the commute, enjoy flexible pricing, and access a rich area. Founding member benefits available now.',
-  keywords: ['flexible workspace', 'coworking', 'Oakville', 'LAUFT', 'office rental'],
+    'Pre-register for LAUFT Muskoka, the new flexible workspace location. Skip the commute, enjoy flexible pricing, and access a rich area. Founding member benefits available now.',
+  keywords: ['flexible workspace', 'coworking', 'Muskoka', 'LAUFT', 'office rental'],
   authors: [{ name: 'LAUFT' }],
   openGraph: {
-    title: 'LAUFT Oakville — Your New Commute Starts Here',
-    description: 'Pre-register for LAUFT Oakville and claim founding-member pricing.',
+    title: 'LAUFT Muskoka — Your New Commute Starts Here',
+    description: 'Pre-register for LAUFT Muskoka and claim founding-member pricing.',
     type: 'website',
-    url: 'https://oakville.lauft.work',
+    url: 'https://muskoka.lauft.work',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'LAUFT Oakville',
+    title: 'LAUFT Muskoka',
     description: 'Your new commute starts here',
   },
 };

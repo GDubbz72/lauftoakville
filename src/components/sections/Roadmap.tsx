@@ -173,7 +173,7 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
         {/* Left column: title + copy */}
         <div>
           <Eyebrow color="#00ABEA" style={{ marginBottom: 14 }}>
-            Pre-Register · Oakville
+            Pre-Register · Muskoka
           </Eyebrow>
           <Headline
             color="#1D252C"
@@ -191,7 +191,7 @@ export const Roadmap = ({ registrationRef }: RoadmapProps) => {
             weight={500}
             style={{ maxWidth: 360 }}
           >
-            Tell us a little about you. We'll send Oakville opening details, founding-member
+            Tell us a little about you. We'll send Muskoka opening details, founding-member
             pricing, and an invite to the launch — first.
           </Body>
         </div>

@@ -31,7 +31,7 @@ export const VirtualTour = ({ onTour }: VirtualTourProps) => {
         <div className="absolute inset-0 -z-10 w-full h-full">
           <Image
             src="/assets/imagery/virtual_tour.png"
-            alt="LAUFT Oakville Virtual Tour"
+            alt="LAUFT Muskoka Virtual Tour"
             fill
             className="object-cover"
             priority
@@ -56,7 +56,7 @@ export const VirtualTour = ({ onTour }: VirtualTourProps) => {
               color="rgba(255,255,255,0.95)"
               weight={500}
             >
-              Step inside LAUFT Oakville before opening day. Our immersive video tour walks
+              Step inside LAUFT Muskoka before opening day. Our immersive video tour walks
               you through every space — from SmartDesks to the SmartBoardroom — so you can
               picture exactly where you'll get your best work done.
             </Body>
@@ -115,7 +115,7 @@ export const VirtualTour = ({ onTour }: VirtualTourProps) => {
               width="100%"
               height="100%"
               src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&controls=1`}
-              title="LAUFT Oakville Virtual Tour"
+              title="LAUFT Muskoka Virtual Tour"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen

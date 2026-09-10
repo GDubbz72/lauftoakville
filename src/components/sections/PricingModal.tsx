@@ -98,7 +98,7 @@ export const PricingModal = ({ isOpen, onClose, onOpenPreRegister }: PricingModa
             color="#1D252C"
             style={{ marginBottom: 16, letterSpacing: '-0.01em' }}
           >
-            LAUFT Oakville Pricing
+            LAUFT Muskoka Pricing
           </Headline>
 
           <Body

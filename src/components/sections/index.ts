@@ -3,7 +3,7 @@ export { Hero } from './Hero';
 export { OfficeAndContact } from './OfficeAndContact';
 export { LocationMap } from './LocationMap';
 export { ClientLogos } from './ClientLogos';
-export { WhyOakville } from './WhyOakville';
+export { WhyMuskoka } from './WhyMuskoka';
 export { VirtualTour } from './VirtualTour';
 export { Roadmap } from './Roadmap';
 export { FinalCTA } from './FinalCTA';

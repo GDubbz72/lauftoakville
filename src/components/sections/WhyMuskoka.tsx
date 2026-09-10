@@ -2,7 +2,7 @@
 
 import { Button, SectionHeading, Body } from '@/components/primitives';
 
-interface WhyOakvilleProps {
+interface WhyMuskokaProps {
   onRegister: () => void;
 }
 
@@ -16,7 +16,7 @@ const benefits = [
       </svg>
     ),
     title: 'Skip the Commute',
-    body: 'Cut out the morning crawl on the QEW. Book a desk minutes from home and reclaim two hours of your day.',
+    body: 'Cut out the morning crawl on the highway. Book a desk minutes from home and reclaim two hours of your day.',
   },
   {
     icon: (
@@ -44,7 +44,7 @@ const benefits = [
   },
 ];
 
-export const WhyOakville = ({ onRegister }: WhyOakvilleProps) => {
+export const WhyMuskoka = ({ onRegister }: WhyMuskokaProps) => {
   return (
     <div className="px-4 py-12 lg:py-16">
       <SectionHeading
@@ -53,7 +53,7 @@ export const WhyOakville = ({ onRegister }: WhyOakvilleProps) => {
         weight={700}
         style={{ marginBottom: 56 }}
       >
-        Why work in Oakville?
+        Why work in Muskoka?
       </SectionHeading>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-14 max-w-4xl mx-auto mb-14">

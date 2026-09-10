@@ -55,7 +55,7 @@ export const OfficeAndContact = ({ onBookTour, onContact }: OfficeAndContactProp
                 Mel Schembri
               </div>
               <div className="font-lato font-semibold text-xs text-[var(--lauft-mid-grey)] uppercase tracking-widest mt-0.5">
-                Brand Lead, Oakville
+                Brand Lead, Muskoka
               </div>
             </div>
 
@@ -80,7 +80,7 @@ export const OfficeAndContact = ({ onBookTour, onContact }: OfficeAndContactProp
               weight={500}
               style={{ marginBottom: 28 }}
             >
-              Want to bring your team to LAUFT Oakville? Our location lead Mel has the
+              Want to bring your team to LAUFT Muskoka? Our location lead Mel has the
               answers — pricing, walkthroughs, and team plans, on your timeline.
             </Body>
 

@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { error: insertError } = await supabase
-      .from('oakville_registrations')
+      .from('muskoka_registrations')
       .insert([
         {
           name: name.trim(),
